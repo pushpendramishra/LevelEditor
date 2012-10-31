@@ -49,11 +49,11 @@
 		982DDD5716311DEC0058738B /* UI_Day8.png in Resources */ = {isa = PBXBuildFile; fileRef = 982DDD3916311DEC0058738B /* UI_Day8.png */; };
 		982DDD5816311DEC0058738B /* UI_Day9.png in Resources */ = {isa = PBXBuildFile; fileRef = 982DDD3A16311DEC0058738B /* UI_Day9.png */; };
 		982DDD5B16311E860058738B /* wrapperImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 982DDD5A16311E860058738B /* wrapperImage.m */; };
-		982DDD6F1631608D0058738B /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = 982DDD6E1631608D0058738B /* Property List.plist */; };
 		983EAB511641064C00B4A5B1 /* File.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 983EAB501641064C00B4A5B1 /* File.rtf */; };
 		983EAB5616410C9800B4A5B1 /* TSDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 983EAB5416410C9700B4A5B1 /* TSDocuments.m */; };
 		983EAB5716410C9800B4A5B1 /* TSDocuments.xib in Resources */ = {isa = PBXBuildFile; fileRef = 983EAB5516410C9800B4A5B1 /* TSDocuments.xib */; };
 		98ED564F163AC60C0013ABC4 /* TSLayerData.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ED564E163AC60C0013ABC4 /* TSLayerData.m */; };
+		ABBE402B164126A1006B5F67 /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABBE402A164126A1006B5F67 /* Property List.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,13 +111,13 @@
 		982DDD3916311DEC0058738B /* UI_Day8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UI_Day8.png; sourceTree = "<group>"; };
 		982DDD3A16311DEC0058738B /* UI_Day9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UI_Day9.png; sourceTree = "<group>"; };
 		982DDD5A16311E860058738B /* wrapperImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wrapperImage.m; sourceTree = "<group>"; };
-		982DDD6E1631608D0058738B /* Property List.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 		983EAB501641064C00B4A5B1 /* File.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = File.rtf; sourceTree = "<group>"; };
 		983EAB5316410C9700B4A5B1 /* TSDocuments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSDocuments.h; sourceTree = "<group>"; };
 		983EAB5416410C9700B4A5B1 /* TSDocuments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSDocuments.m; sourceTree = "<group>"; };
 		983EAB5516410C9800B4A5B1 /* TSDocuments.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TSDocuments.xib; sourceTree = "<group>"; };
 		98ED564D163AC60C0013ABC4 /* TSLayerData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSLayerData.h; sourceTree = "<group>"; };
 		98ED564E163AC60C0013ABC4 /* TSLayerData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSLayerData.m; sourceTree = "<group>"; };
+		ABBE402A164126A1006B5F67 /* Property List.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +136,6 @@
 		982DDCE1163118A40058738B = {
 			isa = PBXGroup;
 			children = (
-				982DDD1A16311A390058738B /* Quartz.framework */,
 				982DDCF6163118A40058738B /* ToolSample */,
 				982DDD6D163134670058738B /* Resources */,
 				982DDCEF163118A40058738B /* Frameworks */,
@@ -155,20 +154,13 @@
 		982DDCEF163118A40058738B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				982DDCF0163118A40058738B /* Cocoa.framework */,
-				982DDCF2163118A40058738B /* Other Frameworks */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		982DDCF2163118A40058738B /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
+				982DDD1A16311A390058738B /* Quartz.framework */,
 				982DDCF3163118A40058738B /* AppKit.framework */,
 				982DDCF4163118A40058738B /* CoreData.framework */,
 				982DDCF5163118A40058738B /* Foundation.framework */,
+				982DDCF0163118A40058738B /* Cocoa.framework */,
 			);
-			name = "Other Frameworks";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		982DDCF6163118A40058738B /* ToolSample */ = {
@@ -200,6 +192,7 @@
 		982DDCF7163118A40058738B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				ABBE402A164126A1006B5F67 /* Property List.plist */,
 				982DDCF8163118A40058738B /* ToolSample-Info.plist */,
 				982DDCF9163118A40058738B /* InfoPlist.strings */,
 				982DDCFC163118A40058738B /* main.m */,
@@ -211,6 +204,23 @@
 			sourceTree = "<group>";
 		};
 		982DDD1C16311DEB0058738B /* Non Retina */ = {
+			isa = PBXGroup;
+			children = (
+				ABBE402916412256006B5F67 /* Images */,
+			);
+			path = "Non Retina";
+			sourceTree = "<group>";
+		};
+		982DDD6D163134670058738B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				982DDD1C16311DEB0058738B /* Non Retina */,
+			);
+			name = Resources;
+			path = ToolSample;
+			sourceTree = "<group>";
+		};
+		ABBE402916412256006B5F67 /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				982DDD1D16311DEC0058738B /* UI_Day1.png */,
@@ -244,17 +254,7 @@
 				982DDD3916311DEC0058738B /* UI_Day8.png */,
 				982DDD3A16311DEC0058738B /* UI_Day9.png */,
 			);
-			path = "Non Retina";
-			sourceTree = "<group>";
-		};
-		982DDD6D163134670058738B /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				982DDD6E1631608D0058738B /* Property List.plist */,
-				982DDD1C16311DEB0058738B /* Non Retina */,
-			);
-			name = Resources;
-			path = ToolSample;
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,9 +342,9 @@
 				982DDD5616311DEC0058738B /* UI_Day7.png in Resources */,
 				982DDD5716311DEC0058738B /* UI_Day8.png in Resources */,
 				982DDD5816311DEC0058738B /* UI_Day9.png in Resources */,
-				982DDD6F1631608D0058738B /* Property List.plist in Resources */,
 				983EAB511641064C00B4A5B1 /* File.rtf in Resources */,
 				983EAB5716410C9800B4A5B1 /* TSDocuments.xib in Resources */,
+				ABBE402B164126A1006B5F67 /* Property List.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

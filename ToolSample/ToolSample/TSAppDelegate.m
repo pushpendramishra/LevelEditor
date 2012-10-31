@@ -10,14 +10,19 @@
 
 @implementation TSAppDelegate
 
-- (void)dealloc
-{
-    [super dealloc];
-}
-
+// ########################################################
+// ##############  Launching Function !!   ################
+// ########################################################
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
 }
 
+// #########################################################
+// ##############  Releasing Of Data !!   ##################
+// #########################################################
+- (void)dealloc
+{
+    [super dealloc];
+}
 @end

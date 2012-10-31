@@ -10,6 +10,7 @@
 
 @interface TSAppDelegate : NSObject <NSApplicationDelegate>
 
+// Properties Of Delegate !!
 @property (assign) IBOutlet NSWindow *window;
 
 @end

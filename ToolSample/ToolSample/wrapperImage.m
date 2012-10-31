@@ -11,22 +11,17 @@
 
 @implementation wrapperImage
 
-
+// ######################################
+// ######### Initialization #############
+// ######################################
 - (id)init
 {
     self = [super init];
-    if (self) {
-        self.imageOnView=[[[NSImage alloc]init] autorelease ] ;
+    if (self)
+    {
+        self.imageOnView    =   [[[NSImage alloc] init] autorelease] ;
     }
-    
     return self;
-}
-
-
-- (void) encodeWithCoder :(NSCoder*) encoder
-{
-    [encoder encodeObject:  self.imageOnView              forKey:@"imageOnView"];
-    [encoder encodePoint:   self.origin                    forKey:@"origin"];
 }
 
 - (id) initWithCoder: (NSCoder*) decoder
@@ -34,21 +29,32 @@
     if (self = [self init])
     {
         // NOTE: Decoded objects are auto-released and must be retained
-        self.imageOnView      = [decoder decodeObjectForKey:  @"imageOnView"];
-        self.origin           = [decoder decodePointForKey:   @"origin"];
+        self.imageOnView      = [decoder decodeObjectForKey : @"imageOnView"];
+        self.origin           = [decoder decodePointForKey  : @"origin"];
     }
     return self;
 }
 
 
-- (void)dealloc
+// ######################################
+// ######### Encoding Data ##############
+// ######################################
+- (void) encodeWithCoder :(NSCoder*) encoder
 {
-    [super dealloc];
+    [encoder encodeObject:  self.imageOnView     forKey     : @"imageOnView"];
+    [encoder encodePoint:   self.origin          forKey     : @"origin"];
 }
 
-- (void)setImage:(NSImage*)curImage
+
+
+
+
+// ######################################
+// ######### Image Frame Settings #######   
+// ######################################
+- (void)setImage:(NSImage *)curImage
 {
-    self.imageOnView=curImage;
+    self.imageOnView    =   curImage;
 }
 
 - (NSImage*)getImage
@@ -56,6 +62,9 @@
 	return self.imageOnView;
 }
 
+// ######################################
+// ######### Origin Settings ############
+// ######################################
 - (void)setOrigin:(NSPoint)newOrigin
 {
     origin=newOrigin;
@@ -64,6 +73,14 @@
 - (NSPoint)getOriginPoint
 {
 	return origin;
+}
+
+// ######################################
+// ######### Releasing Objects ##########
+// ######################################
+- (void)dealloc
+{
+    [super dealloc];
 }
 
 @end

@@ -12,14 +12,18 @@
 @interface wrapperImage : NSObject
 {
     NSImage* imageOnView;
-    NSPoint origin;
+    NSPoint  origin;
 }
+
+// Properties Of Class !!
 @property(nonatomic,retain) NSImage* imageOnView;
 @property(nonatomic) NSPoint origin;
 
 
-- (void)setImage:(NSImage*)curImage;
-- (NSImage*)getImage;
-- (void)setOrigin:(NSPoint)newOrigin;
-- (NSPoint)getOriginPoint;
+// Functions !!
+- (void )setImage:(NSImage*)curImage;
+- (NSImage* )getImage;
+- (void )setOrigin:(NSPoint)newOrigin;
+- (NSPoint )getOriginPoint;
+
 @end

@@ -20,12 +20,10 @@
 }
 
 // override draw rect and force the background layer to redraw if the view did resize or did scroll 
-
 - (void) drawRect:(NSRect) rect
 {
 	//retrieve the visible area
-    //NSLog(@"draw rect of ImageBrowserView   ");
-	NSRect visibleRect = [self visibleRect];
+    NSRect visibleRect = [self visibleRect];
 	
 	//compare with the visible rect at the previous frame
 	if(!NSEqualRects(visibleRect, lastVisibleRect))
@@ -33,7 +31,6 @@
 		//update last visible rect
 		lastVisibleRect = visibleRect;
 	}
-	
 	[super drawRect:rect];
 }
 

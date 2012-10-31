@@ -10,7 +10,6 @@
 #import "masterView.h"
 
 @interface TSDocuments : NSDocument
-
 {
     masterView  *temp;
 }

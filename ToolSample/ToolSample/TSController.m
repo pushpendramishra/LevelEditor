@@ -8,9 +8,7 @@
 
 #import "TSController.h"
 
-
-
-// C function that opens NSOpenPanel and returns an array of file paths.	It uses uniform type identifiers (UTIs) for proper filtering of image files.
+// C function that opens NSOpenPanel and returns an array of file paths.It uses uniform type identifiers (UTIs) for proper filtering of image files.
 static NSArray* openFiles()
 {
 	// Get a list of extensions to filter in our NSOpenPanel.
@@ -20,26 +18,12 @@ static NSArray* openFiles()
     [panel setCanChooseFiles:YES];
 	[panel setAllowsMultipleSelection:YES];
 	
-	if ([panel runModalForTypes:[NSImage imageUnfilteredTypes]] == NSOKButton)
+    //    if([panel runModal] == NSFileHandlingPanelOKButton)
+    //        return [panel URLs];
+	
+    if ([panel runModalForTypes:[NSImage imageUnfilteredTypes]] == NSOKButton)
 		return [panel filenames];
-   // hdf;ljb';dfhblkdjfl;j'
-    return nil;
-}
-
-
-static NSArray* fetchFiles()
-{
-	NSOpenPanel *panel = [[NSOpenPanel openPanel] retain];
-    
-    // Configure your panel the way you want it
-    [panel setCanChooseFiles:YES];
-    [panel setCanChooseDirectories:NO];
-    [panel setAllowsMultipleSelection:YES];
-    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"txt"]];
-    
-    if ([panel runModalForTypes:[NSArray arrayWithObject:@"txt"]] == NSOKButton)
-		return [panel filenames];
-    
+   
     return nil;
 }
 
@@ -54,9 +38,8 @@ static NSArray* fetchFiles()
 
 - (void)dealloc
 {
-    [path release];
-
     [super dealloc];
+    [path release];   
 }
 
 //	The data source object is just a file path representation
@@ -140,7 +123,7 @@ static NSArray* fetchFiles()
     NSSize masterViewSize=object.frame.size;
     scalingFactor.x=320/masterViewSize.width;
     scalingFactor.y=480/masterViewSize.height;
-	// Create two arrays : The first is for the data source representation. The second one contains temporary imported images  for thread safeness.
+	// Create two arrays : The first is for the data source representation. The second one contains temporary imported images for thread safeness.
     
     [object setDelegate:self];
     
@@ -369,6 +352,8 @@ static NSArray* fetchFiles()
 //    NSString *imageResourcesFolderPath = [resourcesPathToApp stringByAppendingString:resourcesPathToAppExtraInfo];
 //    [self addImagesWithPaths:[NSArray arrayWithObject:imageResourcesFolderPath]];
     NSArray* path = openFiles();
+    
+    NSLog(@"Array = %@ ",path);
     if (path)
 	{
         if(selectedTab ==1 )

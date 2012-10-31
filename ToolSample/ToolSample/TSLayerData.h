@@ -9,9 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "wrapperImage.h"
 @interface TSLayerData : NSObject <NSCoding>
-
 {
-    wrapperImage            *imageObject;
+    wrapperImage        *imageObject;
     int                 uniqueID;
     int                 ID;
     int                 zOrder;
@@ -30,5 +29,11 @@
 @property (nonatomic,assign) float               originY;
 @property (nonatomic,assign) float               width;
 @property (nonatomic,assign) float               height;
+
+
+// ##### Encoding And Decoding Of Data !!
+-(void ) decodingOfObjectData : (NSCoder*) decoder;
+- (void) encodeWithCoder :(NSCoder*) encoder;
+
 
 @end

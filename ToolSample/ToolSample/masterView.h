@@ -27,7 +27,7 @@
 	NSRect                              _rectangleStruct;
 	NSPoint                             _stationaryOrigin;
 	NSPoint                             imagePoints;
-    NSRect                             collisionRect;
+    NSRect                              collisionRect;
     
     //bool
     BOOL                                _isRectResize;

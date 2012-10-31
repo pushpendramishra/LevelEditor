@@ -143,7 +143,6 @@
 
 - (void)awakeFromNib
 {
-    //
     layerArray = [[NSMutableArray alloc]init];
     bottomLayerArray = [[NSMutableArray alloc]init];
     middleLayerArray = [[NSMutableArray alloc]init];

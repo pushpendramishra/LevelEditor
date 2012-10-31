@@ -9,16 +9,18 @@
 #import <Quartz/Quartz.h>
 #import <Cocoa/Cocoa.h>
 
+// ###### Custom Protocol #######
 @protocol MyViewDelegate
 - (void)doStuff:(NSEvent *)event;
 @end
 
-
+// ###### Forward Class Declaration ########
 @class masterView;
-@interface TSController : NSObject <MyViewDelegate>
 
+
+@interface TSController : NSObject <MyViewDelegate>
 {
-    //IbOutlet
+    //IBOutlet
     IBOutlet IKImageBrowserView                 	*imageBrowser;
     IBOutlet NSWindow                               *popupWindow;
     IBOutlet NSComboBox                             *dropDownList;
@@ -46,11 +48,11 @@
 @property (nonatomic,retain) IBOutlet NSTabView     *tabView;
 @property (nonatomic,assign) NSInteger              selectedTab;
 
-//other methods
+// ######## Supporting Methods !!
 - (void)fetchedFiles:(NSArray*)path;
 
 
-//action
+// ########  Actions Events !!
 - (IBAction)collision:(id)sender;
 - (IBAction)addImageButtonClicked:(id)sender;
 - (IBAction)segmentSwitch:(id)sender;
@@ -63,6 +65,8 @@
 - (IBAction)tabView:(id)sender;
 
 
-
+// ####### Protocol Methods !!
 - (void)doStuff:(NSEvent *)event;
+
+
 @end
