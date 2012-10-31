@@ -22,7 +22,7 @@ static NSArray* openFiles()
 	
 	if ([panel runModalForTypes:[NSImage imageUnfilteredTypes]] == NSOKButton)
 		return [panel filenames];
-    
+   // hdf;ljb';dfhblkdjfl;j'
     return nil;
 }
 
