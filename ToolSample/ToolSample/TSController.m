@@ -27,6 +27,9 @@ static NSArray* openFiles()
     return nil;
 }
 
+
+
+
 // data source object.
 @interface myImageObject : NSObject
 {
@@ -94,9 +97,10 @@ static NSArray* openFiles()
 
 @implementation TSController
 
-@synthesize object;
+@synthesize masterView_object;
 @synthesize tabView;
 @synthesize selectedTab;
+@synthesize scrollView;
 
 
 
@@ -120,22 +124,22 @@ static NSArray* openFiles()
 
 - (void)awakeFromNib
 {
-    NSSize masterViewSize=object.frame.size;
+    NSSize masterViewSize=masterView_object.frame.size;
     scalingFactor.x=320/masterViewSize.width;
     scalingFactor.y=480/masterViewSize.height;
 	// Create two arrays : The first is for the data source representation. The second one contains temporary imported images for thread safeness.
     
-    [object setDelegate:self];
+    [masterView_object setDelegate:self];
     
+     
     //
-    object.obj_TSController = self;
+    masterView_object.obj_TSController = self;
     images = [[NSMutableArray alloc] init];
     
     importedImages = [[NSMutableArray alloc] init];
     
-    [object setBackgroundFilters:[NSArray arrayWithObject:[NSColor colorWithCalibratedWhite:0.5 alpha:1]]];
     
-    check =1;
+    
     
     // Allow reordering, animations and set the dragging destination delegate.
     [imageBrowser setAllowsReordering:YES];
@@ -391,7 +395,7 @@ static NSArray* openFiles()
 
 - (IBAction)comboBox:(id)sender
 {
-    NSSize masterViewSize=object.frame.size;
+    NSSize masterViewSize=masterView_object.frame.size;
     switch (((NSComboBox *)sender).indexOfSelectedItem)
     {
         case 0:
@@ -491,12 +495,12 @@ static NSArray* openFiles()
 //	}
     
     
-    [object openData];
+    [masterView_object openData];
 }
 
 - (IBAction)saveFile:(id)sender
 {
-    [object saveData];
+    [masterView_object saveData];
 }
 
 
@@ -507,15 +511,15 @@ static NSArray* openFiles()
 
 - (IBAction)collision:(id)sender
 {
-    if (!object.isCollision)
+    if (!masterView_object.isCollision)
     {
-        object.isCollision =YES;
-        [object setCollision];
+        masterView_object.isCollision =YES;
+        [masterView_object setCollision];
     }
     else 
     {
-        object.isCollision =NO;
-        [object setCollision];
+        masterView_object.isCollision =NO;
+        [masterView_object setCollision];
     }
 
     
@@ -699,11 +703,28 @@ static NSArray* openFiles()
 	// Accept the drag operation.
 	return YES;
 }
-
+int offset =0 ;;
 - (void)doStuff:(NSEvent *)event
 {
-    xPositionField.stringValue = [NSString stringWithFormat:@"%f",object.imagePoints.x];
-    yPositionField.stringValue = [NSString stringWithFormat:@"%f",object.frame.size.height-object.imagePoints.y-object.object_LD.height];
+    xPositionField.stringValue = [NSString stringWithFormat:@"%f",masterView_object.mousePoints.x];
+    yPositionField.stringValue = [NSString stringWithFormat:@"%f",masterView_object.frame.size.height-masterView_object.mousePoints.y-masterView_object.object_LD.height];
+    
+    NSLog(@"   ImagePoints = %f %f %f %f",masterView_object.object_LD.width,masterView_object.object_LD.height,masterView_object.object_LD.originX,masterView_object.object_LD.originY);
+    
+    NSLog(@" Scroll View   ImagePoints = %@",NSStringFromRect([[scrollView contentView] visibleRect]));
+     NSLog(@"Objectc jfjv;dfibidfk  ImagePoints = %@",NSStringFromRect(masterView_object.frame));
+    if (masterView_object.object_LD.originX > [[scrollView contentView] visibleRect].origin.x + [[scrollView contentView] visibleRect].size.width)
+    {
+        masterView_object.frame = CGRectMake(masterView_object.frame.origin.x, masterView_object.frame.origin.y, masterView_object.frame.size.width+masterView_object.object_LD.width/2, masterView_object.frame.size.height);
+        [scrollView setDocumentView:masterView_object];
+        offset += masterView_object.object_LD.width/2;
+        [[scrollView contentView] scrollToPoint:NSMakePoint(offset , 0)];
+    }
+    else if (masterView_object.object_LD.originX <= [[scrollView contentView] visibleRect].origin.x && [[scrollView contentView] visibleRect].origin.x > 0)
+    {
+        offset -= masterView_object.object_LD.width/2;
+        [[scrollView contentView] scrollToPoint:NSMakePoint(offset , 0)];
+    }
 }
 
 

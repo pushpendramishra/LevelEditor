@@ -27,6 +27,7 @@
 	NSRect                              _rectangleStruct;
 	NSPoint                             _stationaryOrigin;
 	NSPoint                             imagePoints;
+	NSPoint                             mousePoints;
     NSRect                              collisionRect;
     
     //bool
@@ -53,7 +54,7 @@
 @property (nonatomic,retain)   TSController                        *obj_TSController;
 @property(nonatomic,retain)    wrapperImage                        *newWrapperImage;
 @property(nonatomic,retain)    TSLayerData                         *object_LD;
-@property(nonatomic,assign)    NSPoint                             imagePoints;
+@property(nonatomic,assign)    NSPoint                             mousePoints;
 
 //getter 
 -(NSMutableArray*)                      imagesArrayPath;

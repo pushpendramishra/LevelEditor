@@ -22,6 +22,7 @@
 {
     //IBOutlet
     IBOutlet IKImageBrowserView                 	*imageBrowser;
+    IBOutlet NSScrollView                 	        *scrollView;
     IBOutlet NSWindow                               *popupWindow;
     IBOutlet NSComboBox                             *dropDownList;
     IBOutlet NSButton                            	*checkBoxshow;
@@ -37,20 +38,21 @@
     NSMutableArray                                  *importedImages;
     
     //
-    masterView                                      *object;
+    masterView                                      *masterView_object;
     NSPoint                                         scalingFactor;
     int                                             check;
     NSInteger                                       selectedTab;
 }
 
 @property (assign) IBOutlet NSWindow                *window;
-@property (assign) IBOutlet masterView              *object;
+@property (assign) IBOutlet masterView              *masterView_object;
 @property (nonatomic,retain) IBOutlet NSTabView     *tabView;
+@property (nonatomic,retain) IBOutlet NSScrollView  *scrollView;
 @property (nonatomic,assign) NSInteger              selectedTab;
 
 // ######## Supporting Methods !!
 - (void)fetchedFiles:(NSArray*)path;
-
+- (void)setContentSize:(NSSize*)size;
 
 // ########  Actions Events !!
 - (IBAction)collision:(id)sender;

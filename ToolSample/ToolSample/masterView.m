@@ -119,7 +119,7 @@
 @synthesize newWrapperImage;
 @synthesize layerArray;
 @synthesize object_LD;
-@synthesize imagePoints;
+@synthesize mousePoints;
 
 - (id)initWithFrame:(NSRect)frame 
 {
@@ -159,40 +159,6 @@
     counter = 0;
     
     
-    //the int values
-    int values[5] = {
-        5,
-        4,
-        3,
-        2,
-        1
-    };
-    int i;
-    NSError *error;
-    
-    //store them into a file
-    NSMutableString *mutstr = [[NSMutableString alloc] init];
-    for(i = 0; i < 5; i++)
-        [mutstr appendFormat:@"%i ", values[i]];
-    
-    //write to file
-    [mutstr writeToFile:@"Data.txt" atomically:YES encoding:NSUnicodeStringEncoding error:&error];
-    
-    //read from the file
-    NSString *string = [[NSString alloc] initWithContentsOfFile:@"Data.txt"];
-    if(string == nil)
-    {
-        NSLog(@"Error reading file");
-    }
-    
-    //scan the integers from the file
-    NSScanner *scanner = [[NSScanner alloc] initWithString:string];
-    while([scanner isAtEnd] == NO)
-    {
-        NSInteger integer;
-        [scanner scanInt:&integer];
-        NSLog(@"Value : %d", integer);
-    }
     
     
 }
@@ -489,8 +455,8 @@
 
     
     //set scalingfactor
-    imagePoints.x =object_LD.originX - object_LD.width/2;
-    imagePoints.y =object_LD.originY - object_LD.height/2;
+    mousePoints.x =object_LD.originX - object_LD.width/2;
+    mousePoints.y =object_LD.originY - object_LD.height/2;
 
     NSRect newRect = _rectangleStruct;
     
