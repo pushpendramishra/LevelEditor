@@ -67,6 +67,7 @@
 -(void)create;
 -(void)saveData;
 -(void)openData;
+-(void)resetView;
 
 
 //delagate

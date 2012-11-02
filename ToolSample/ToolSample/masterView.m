@@ -704,48 +704,13 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
 
 -(void)saveData
 {
-    BOOL success;
-    NSError *error;
-    
-    
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"Property List.plist"];
-    
-    success = [fileManager fileExistsAtPath:filePath];
-    if (!success)
-    {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"Property List" ofType:@"plist"];
-        success = [fileManager copyItemAtPath:path toPath:filePath error:&error];
-        
-    }
-    
-    
-    // set data
-    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject: self.layerArray];
-    [encodedObject writeToFile: filePath atomically: YES];
-    
-    if(encodedObject)
-    {
-        [encodedObject writeToFile: filePath atomically:YES];
-        
-        return;
-    }
-    else
-    {
-        NSLog(@"error");
-    }
 
-    
-    NSDictionary *plistData = [NSDictionary dictionaryWithContentsOfFile:filePath];
  
 }
 
 -(void)openData
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    /*NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"Property List.plist"];
 
@@ -766,11 +731,20 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
             [self setNeedsDisplay:YES];
         }
 
-    }
+    }*/
     
-        
+    
+    [self setNeedsDisplay:YES];
+
 
 }
+
+-(void)resetView
+{
+    [layerArray removeAllObjects];
+    [self setNeedsDisplay:YES];
+}
+
 
 #pragma mark - memory management
 

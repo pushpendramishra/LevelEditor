@@ -28,8 +28,6 @@ static NSArray* openFiles()
 }
 
 
-
-
 // data source object.
 @interface myImageObject : NSObject
 {
@@ -453,54 +451,145 @@ static NSArray* openFiles()
 
 - (IBAction)newFile:(id)sender
 {
+    bool  empty ;
+    if ([[masterView_object.layerArray objectAtIndex:0] count ]== 0 && [[masterView_object.layerArray objectAtIndex:1] count ]== 0 && [[masterView_object.layerArray objectAtIndex:2] count ]== 0)
+    {
+        empty= YES;
+    }
     
+    if (empty)
+    {
+        //[masterView_object resetView];
+    }
+    else
+    {
+        NSAlert* msgBox = [[[NSAlert alloc] init] autorelease];
+        [msgBox setMessageText: @"Do you want to save this file?"];
+        [msgBox addButtonWithTitle: @"YES"];
+        [msgBox addButtonWithTitle:@"No"];
+        [msgBox runModal];
+    }
+}
+
+
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode
+        contextInfo:(void *)contextInfo
+{
+    NSLog(@"returnCode:%d", returnCode);
+    [[alert window] orderOut:nil];
+    
+    switch (returnCode) {
+        case NSAlertFirstButtonReturn:{
+        }
+            NSLog(@"FIRST BUTTON PRESSED");
+            break;
+            
+        case NSAlertSecondButtonReturn:{ // don't show again.
+            NSLog(@"SECOND BUTTON PRESSED");
+        }
+            
+            break;
+            
+        default:
+            break;
+}
+
 }
 
 - (IBAction)openFile:(id)sender
 {
-//    NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
-//    
-//    if ([openPanel runModal] == NSOKButton)
-//    {
-//        NSString *selectedFileName = [openPanel filename];
-//    }
-//    
-    
-//    NSOpenPanel *panel = [[NSOpenPanel openPanel] retain];
-//    
-//    // Configure your panel the way you want it
-//    [panel setCanChooseFiles:YES];
-//    [panel setCanChooseDirectories:NO];
-//    [panel setAllowsMultipleSelection:YES];
-//    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"txt"]];
-//    
-//    [panel beginWithCompletionHandler:^(NSInteger result){
-//        if (result == NSFileHandlingPanelOKButton) {
-//            
-//            for (NSURL *fileURL in [panel URLs]) {
-//                // Do what you want with fileURL
-//                // ...
-//            }
-//        }
-//        
-//        [panel release];
-//    }];
     
     
-//    NSArray* path = fetchFiles();
-//    if (path)
-//	{
-//                
-//		[NSThread detachNewThreadSelector:@selector(fetchedFiles:) toTarget:self withObject:path];
-//	}
+    NSOpenPanel *panel = [[NSOpenPanel openPanel] retain];
+    
+    // Configure your panel the way you want it
+    [panel setCanChooseFiles:YES];
+    [panel setCanChooseDirectories:NO];
+    [panel setAllowsMultipleSelection:NO];
+    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"txt"]];
+    
+    [panel beginWithCompletionHandler:^(NSInteger result){
+        if (result == NSFileHandlingPanelOKButton)
+        {
+            
+            for (NSURL *fileURL in [panel URLs])
+            {
+                NSData       *data = [NSData dataWithContentsOfURL:fileURL];
+                
+                if (data != nil)
+                {
+                    // retrieve stored data
+                    masterView *obj_ProfileModelUnarchiever = [[masterView alloc] init];
+                    obj_ProfileModelUnarchiever. layerArray = [NSKeyedUnarchiver unarchiveObjectWithData: data];
+                    
+                    NSLog(@"loadFromSerializedObjects %@", obj_ProfileModelUnarchiever. layerArray);
+                    [masterView_object.layerArray removeAllObjects];
+                    [masterView_object.layerArray addObjectsFromArray:obj_ProfileModelUnarchiever. layerArray];
+                    [masterView_object openData];
+                }
+
+            }
+        }
+        
+        [panel release];
+    }];
     
     
-    [masterView_object openData];
+    
+    
+    //
 }
 
 - (IBAction)saveFile:(id)sender
 {
-    [masterView_object saveData];
+    BOOL success;
+    NSError *error;
+    
+    
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"Property List.plist"];
+    
+    success = [fileManager fileExistsAtPath:filePath];
+    if (!success)
+    {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"Property List" ofType:@"plist"];
+        success = [fileManager copyItemAtPath:path toPath:filePath error:&error];
+        
+    }
+    
+    
+    // set data
+    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject: masterView_object.layerArray];
+    [encodedObject writeToFile: filePath atomically: YES];
+    
+    if(encodedObject)
+    {
+        [encodedObject writeToFile: filePath atomically:YES];
+        
+        //return;
+    }
+    else
+    {
+        NSLog(@"error");
+    }
+    
+    
+    NSDictionary   *dic = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    
+    NSData *data = [NSPropertyListSerialization dataFromPropertyList:dic
+                                                              format:NSPropertyListXMLFormat_v1_0 errorDescription:nil];
+    
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    
+    NSInteger ret = [panel runModal];
+    if (ret == NSFileHandlingPanelOKButton) {
+        [data writeToURL:[panel URL] atomically:YES];
+    }
+
+
 }
 
 
