@@ -42,6 +42,7 @@
     NSPoint                                         scalingFactor;
     int                                             check;
     NSInteger                                       selectedTab;
+    NSTimer                                         *t_AnimationTimer;
 }
 
 @property (assign) IBOutlet NSWindow                *window;

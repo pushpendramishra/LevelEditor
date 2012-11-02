@@ -26,7 +26,6 @@
 
 	NSRect                              _rectangleStruct;
 	NSPoint                             _stationaryOrigin;
-	NSPoint                             imagePoints;
 	NSPoint                             mousePoints;
     NSRect                              collisionRect;
     

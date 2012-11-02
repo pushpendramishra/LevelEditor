@@ -178,16 +178,18 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    
     [super drawRect:dirtyRect];    
-
-    
 
     for (NSArray*object in layerArray)
     {
         for (TSLayerData*obj in object)
         {
             NSLog(@"draw Rect image location point is %f", obj.originY);
+            
+            // ##### Condition to Prevent Drawing in -X direction from Origin !!
+            if(obj.originX < obj.width/2)
+                obj.originX = obj.width/2;
+            
             [[obj.imageObject getImage] compositeToPoint:NSMakePoint(obj.originX-obj.width/2,obj.originY-obj.height/2) operation:NSCompositeSourceOver];
             
             if(isImageSelected)
@@ -457,7 +459,10 @@
     //set scalingfactor
     mousePoints.x =object_LD.originX - object_LD.width/2;
     mousePoints.y =object_LD.originY - object_LD.height/2;
-
+    
+    if(mousePoints.x < 0)
+        mousePoints.x = 0;
+    
     NSRect newRect = _rectangleStruct;
     
     if( _isRectResize )
@@ -535,7 +540,8 @@
 	[self setNeedsDisplay:YES];
     
     
-    if (delegate && [delegate respondsToSelector:@selector(doStuff:)]) {
+    if (delegate && [delegate respondsToSelector:@selector(doStuff:)])
+    {
     [delegate doStuff:theEvent];
     }
     return;

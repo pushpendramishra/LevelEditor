@@ -1337,7 +1337,7 @@
 												<object class="NSCustomView" id="348641950">
 													<reference key="NSNextResponder" ref="479493942"/>
 													<int key="NSvFlags">301</int>
-													<string key="NSFrame">{{7, 0}, {498, 642}}</string>
+													<string key="NSFrame">{{7, 7}, {498, 642}}</string>
 													<reference key="NSSuperview" ref="479493942"/>
 													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="386993914"/>
@@ -1347,14 +1347,14 @@
 													<string key="NSClassName">masterView</string>
 												</object>
 											</array>
-											<string key="NSFrameSize">{513, 642}</string>
+											<string key="NSFrameSize">{513, 657}</string>
 											<reference key="NSSuperview" ref="849927366"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="348641950"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 										</object>
 									</array>
-									<string key="NSFrame">{{1, 1}, {496, 625}}</string>
+									<string key="NSFrame">{{1, 1}, {496, 640}}</string>
 									<reference key="NSSuperview" ref="1011086591"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="479493942"/>
@@ -1829,7 +1829,6 @@
 							<string key="NSFrame">{{493, 497}, {276, 42}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="976835356"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<array class="NSMutableArray" key="NSTabViewItems">
@@ -2894,11 +2893,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">object</string>
+						<string key="label">masterView_object</string>
 						<reference key="source" ref="772898034"/>
 						<reference key="destination" ref="348641950"/>
 					</object>
-					<int key="connectionID">554</int>
+					<int key="connectionID">717</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -4567,7 +4566,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">716</int>
+			<int key="maxID">717</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4653,7 +4652,7 @@
 						<string key="dropDownList">NSComboBox</string>
 						<string key="imageBrowser">IKImageBrowserView</string>
 						<string key="imageButton">NSButton</string>
-						<string key="object">masterView</string>
+						<string key="masterView_object">masterView</string>
 						<string key="popupWindow">NSWindow</string>
 						<string key="scrollView">NSScrollView</string>
 						<string key="tabView">NSTabView</string>
@@ -4682,8 +4681,8 @@
 							<string key="name">imageButton</string>
 							<string key="candidateClassName">NSButton</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="object">
-							<string key="name">object</string>
+						<object class="IBToOneOutletInfo" key="masterView_object">
+							<string key="name">masterView_object</string>
 							<string key="candidateClassName">masterView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="popupWindow">

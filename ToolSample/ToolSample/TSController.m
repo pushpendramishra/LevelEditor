@@ -705,7 +705,7 @@ static NSArray* openFiles()
 }
 int offset =0 ;;
 - (void)doStuff:(NSEvent *)event
-{
+{    
     xPositionField.stringValue = [NSString stringWithFormat:@"%f",masterView_object.mousePoints.x];
     yPositionField.stringValue = [NSString stringWithFormat:@"%f",masterView_object.frame.size.height-masterView_object.mousePoints.y-masterView_object.object_LD.height];
     
@@ -717,8 +717,9 @@ int offset =0 ;;
     {
         masterView_object.frame = CGRectMake(masterView_object.frame.origin.x, masterView_object.frame.origin.y, masterView_object.frame.size.width+masterView_object.object_LD.width/2, masterView_object.frame.size.height);
         [scrollView setDocumentView:masterView_object];
-        offset += masterView_object.object_LD.width/2;
-        [[scrollView contentView] scrollToPoint:NSMakePoint(offset , 0)];
+       
+       offset += masterView_object.object_LD.width/2;
+       [[scrollView contentView] scrollToPoint:NSMakePoint(offset , 0)];
     }
     else if (masterView_object.object_LD.originX <= [[scrollView contentView] visibleRect].origin.x && [[scrollView contentView] visibleRect].origin.x > 0)
     {
@@ -726,6 +727,7 @@ int offset =0 ;;
         [[scrollView contentView] scrollToPoint:NSMakePoint(offset , 0)];
     }
 }
+
 
 
 
