@@ -1,25 +1,27 @@
-////
-//  MasterView.m
-//  image-browser-appearance
 //
-//  Created by Prashant on 12/09/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  TSMasterView.m
+//  ToolSample
+//
+//  Created by prashant shukla on 05/11/12.
+//  Copyright (c) 2012 prashant shukla. All rights reserved.
 //
 
-#import "masterView.h"
+#import "TSMasterView.h"
+
 #import "TSLayerData.h"
 
 
 #define RECT_WIDTH 200.0
 #define CIRCLE_WIDTH 20.0
 
-@interface masterView(Private)
+@interface TSMasterView(Private)
+
 -(void)updateShapeWithRect:(NSRect)newRect;
 -(BOOL)getOriginOfRectFromHitPoint:(NSPoint)localPoint outOrigin:(NSPoint *)outOrigin;
 @end
 
 
-@implementation masterView(Private)
+@implementation TSMasterView(Private)
 
 
 #pragma mark - private method
@@ -27,33 +29,40 @@
 -(BOOL)getOriginOfRectFromHitPoint:(NSPoint)localPoint outOrigin:(NSPoint *)outOrigin
 {
 	BOOL didHitCircle = NO;
-	if( [_rectangle1  containsPoint:localPoint] )
+	if( [_circle  containsPoint:localPoint] )
 	{
-		NSPoint rectangle3Origin = NSMakePoint(_rectangleStruct.origin.x + _rectangleStruct.size.width, _rectangleStruct.origin.y+_rectangleStruct.size.height );
-		outOrigin->x = rectangle3Origin.x;
-		outOrigin->y=rectangle3Origin.y;
+		NSPoint circle3Origin = NSMakePoint(_rectangleStruct.origin.x + _rectangleStruct.size.width, _rectangleStruct.origin.y+_rectangleStruct.size.height );
+		outOrigin->x = circle3Origin.x;
+		outOrigin->y=circle3Origin.y;
 		didHitCircle = YES;
 	}
-	else if( [_rectangle2  containsPoint:localPoint] )
+	else if( [_circle2  containsPoint:localPoint] )
 	{
-		NSPoint rectangle4Origin = NSMakePoint(_rectangleStruct.origin.x , _rectangleStruct.origin.y+_rectangleStruct.size.height);
-		outOrigin->x = rectangle4Origin.x;
-		outOrigin->y=rectangle4Origin.y;
+		NSPoint circle4Origin = NSMakePoint(_rectangleStruct.origin.x , _rectangleStruct.origin.y+_rectangleStruct.size.height);
+		outOrigin->x = circle4Origin.x;
+		outOrigin->y=circle4Origin.y;
 		didHitCircle = YES;
 	}
-	else if( [_rectangle3  containsPoint:localPoint] )
+	else if( [_circle3  containsPoint:localPoint] )
 	{
         
-		NSPoint rectangle1Origin = NSMakePoint(_rectangleStruct.origin.x, _rectangleStruct.origin.y ) ;
-		outOrigin->x = rectangle1Origin.x;
-		outOrigin->y=rectangle1Origin.y;
+		NSPoint circle1Origin = NSMakePoint(_rectangleStruct.origin.x, _rectangleStruct.origin.y ) ;
+		outOrigin->x = circle1Origin.x;
+		outOrigin->y=circle1Origin.y;
 		didHitCircle = YES;
 	}
-	else if( [_rectangle4  containsPoint:localPoint] )
+	else if( [_circle4  containsPoint:localPoint] )
 	{
-		NSPoint rectangle2Origin = NSMakePoint(_rectangleStruct.origin.x + _rectangleStruct.size.width, _rectangleStruct.origin.y  );
-		outOrigin->x = rectangle2Origin.x;
-		outOrigin->y=rectangle2Origin.y;
+		NSPoint circle2Origin = NSMakePoint(_rectangleStruct.origin.x + _rectangleStruct.size.width, _rectangleStruct.origin.y  );
+		outOrigin->x = circle2Origin.x;
+		outOrigin->y=circle2Origin.y;
+		didHitCircle = YES;
+	}
+    if( [_rectangle  containsPoint:localPoint] )
+	{
+		NSPoint circle2Origin = NSMakePoint(_rectangleStruct.origin.x + _rectangleStruct.size.width, _rectangleStruct.origin.y  );
+		outOrigin->x = circle2Origin.x;
+		outOrigin->y=circle2Origin.y;
 		didHitCircle = YES;
 	}
     
@@ -69,44 +78,44 @@
 	//NSBezierPath *_newRectPath = [NSBezierPath bezierPathWithRect:_rectangleStruct];
 	//[self setBezierPath:_newRectPath];
 	
-	//_rectangle1
+	//circle1
     NSRect circle1Rect = NSMakeRect(newRect.origin.x, newRect.origin.y, CIRCLE_WIDTH, CIRCLE_WIDTH);
-	if( _rectangle1)
+	if( _circle)
 	{
-		[_rectangle1 release];
+		[_circle release];
 	}
-	_rectangle1 = [[NSBezierPath bezierPathWithRect:circle1Rect]retain];
+	_circle = [[NSBezierPath bezierPathWithRect:circle1Rect]retain];
 	
 	
-	//_rectangle2
+	//circle2
 	NSRect circle2Rect = NSMakeRect(newRect.origin.x + newRect.size.width-CIRCLE_WIDTH, newRect.origin.y  , CIRCLE_WIDTH, CIRCLE_WIDTH);
-	if( _rectangle2)
+	if( _circle2)
 	{
-		[_rectangle2 release];
+		[_circle2 release];
 	}
-	_rectangle2 = [[NSBezierPath bezierPathWithRect:circle2Rect]retain];
+	_circle2 = [[NSBezierPath bezierPathWithRect:circle2Rect]retain];
 	
-	//_rectangle3
+	//circle3
 	NSRect circle3Rect = NSMakeRect(newRect.origin.x + newRect.size.width-CIRCLE_WIDTH, newRect.origin.y+newRect.size.height-CIRCLE_WIDTH  , CIRCLE_WIDTH, CIRCLE_WIDTH);
-	if( _rectangle3)
+	if( _circle3)
 	{
-		[_rectangle3 release];
+		[_circle3 release];
 	}
-	_rectangle3 = [[NSBezierPath bezierPathWithRect:circle3Rect]retain];
+	_circle3 = [[NSBezierPath bezierPathWithRect:circle3Rect]retain];
 	
 	
-	//_rectangle4
+	//circle4
 	NSRect circle4Rect = NSMakeRect(newRect.origin.x , newRect.origin.y+newRect.size.height-CIRCLE_WIDTH  , CIRCLE_WIDTH, CIRCLE_WIDTH);
-	if( _rectangle4)
+	if( _circle4)
 	{
-		[_rectangle4 release];
+		[_circle4 release];
 	}
-	_rectangle4 = [[NSBezierPath bezierPathWithRect:circle4Rect]retain];
+	_circle4 = [[NSBezierPath bezierPathWithRect:circle4Rect]retain];
 	
 }
 
 @end
-@implementation masterView
+@implementation TSMasterView
 @synthesize isCollision;
 @synthesize obj_TSController;
 @synthesize newWrapperImage;
@@ -114,14 +123,14 @@
 @synthesize object_LD;
 @synthesize originPoints;
 
-- (id)initWithFrame:(NSRect)frame 
+- (id)initWithFrame:(NSRect)frame
 {
-    if (! (self = [super initWithFrame:frame] ) ) 
+    if (! (self = [super initWithFrame:frame] ) )
     {
 		NSLog(@"Error: MyNSView initWithFrame");
         flag=1;
         return self;
-    } 
+    }
     isImageSelected = NO;
     [newWrapperImage setImage: nil];
     layerArray = [[NSMutableArray alloc]init];
@@ -131,11 +140,12 @@
 	[self registerForDraggedTypes:[NSArray arrayWithObjects:NSTIFFPboardType, NSFilenamesPboardType, nil]];
     
     return self;
-} 
+}
 
 
 - (void)awakeFromNib
 {
+    //
     layerArray = [[NSMutableArray alloc]init];
     bottomLayerArray = [[NSMutableArray alloc]init];
     middleLayerArray = [[NSMutableArray alloc]init];
@@ -144,14 +154,48 @@
     
     self.object_LD = [[[TSLayerData alloc]init ]autorelease];
     
-    //add 
+    //add
     [layerArray addObject:bottomLayerArray];
     [layerArray addObject:middleLayerArray];
     [layerArray addObject:topLayerArray];
-
+    
     counter = 0;
     
     
+    //the int values
+    int values[5] = {
+        5,
+        4,
+        3,
+        2,
+        1
+    };
+    int i;
+    NSError *error;
+    
+    //store them into a file
+    NSMutableString *mutstr = [[NSMutableString alloc] init];
+    for(i = 0; i < 5; i++)
+        [mutstr appendFormat:@"%i ", values[i]];
+    
+    //write to file
+    [mutstr writeToFile:@"Data.txt" atomically:YES encoding:NSUnicodeStringEncoding error:&error];
+    
+    //read from the file
+    NSString *string = [[NSString alloc] initWithContentsOfFile:@"Data.txt"];
+    if(string == nil)
+    {
+        NSLog(@"Error reading file");
+    }
+    
+    //scan the integers from the file
+    NSScanner *scanner = [[NSScanner alloc] initWithString:string];
+    while([scanner isAtEnd] == NO)
+    {
+        NSInteger integer;
+        [scanner scanInt:&integer];
+        NSLog(@"Value : %d", integer);
+    }
     
     
 }
@@ -171,96 +215,84 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    [super drawRect:dirtyRect];    
-
+    
+    [super drawRect:dirtyRect];
+    
+    
+    
     for (NSArray*object in layerArray)
     {
         for (TSLayerData*obj in object)
         {
-            NSLog(@"draw Rect image location point is image %f", obj.width);
-            NSLog(@"draw Rect image location point is image %f", obj.height);
-            
-            // ##### Condition to Prevent Drawing in -X direction from Origin !!
-            if(obj.originX < obj.width/2)
-                obj.originX = obj.width/2;
-            
-            NSRect imageRect;
-            imageRect = NSMakeRect(obj.originX-obj.width/2,obj.originY-obj.height/2,  obj.width ,obj.height);
-
-            //[[obj.imageObject getImage] drawInRect:imageRect fromRect:imageRect operation:NSCompositeSourceOver fraction:1];
+            NSLog(@"draw Rect image location point is %f", obj.originY);
             [[obj.imageObject getImage] compositeToPoint:NSMakePoint(obj.originX-obj.width/2,obj.originY-obj.height/2) operation:NSCompositeSourceOver];
             
             if(isImageSelected)
             {
-                    //draw image border
-                    NSLog(@"draw Rect image location point is rect %f", object_LD.originX - object_LD.width/2);
-                    NSLog(@"draw Rect image location point is rect %f", object_LD.originY -object_LD.height/2);
-                    NSRect dirtyRect2;
-                   dirtyRect2 = NSMakeRect(object_LD.originX - object_LD.width/2, object_LD.originY -object_LD.height/2,  object_LD.width ,object_LD.height);
-
-                   [[NSColor greenColor] set];
-                   [NSBezierPath strokeRect:dirtyRect2];
+                //draw image border
+                NSRect dirtyRect2;
+                dirtyRect2 = NSMakeRect(object_LD.originX - object_LD.width/2, object_LD.originY -object_LD.height/2,  object_LD.width ,object_LD.height);
+                
+                [[NSColor greenColor] set];
+                [NSBezierPath strokeRect:dirtyRect2];
             }
             
         }
     }
-    
-    
-    
     // Draw your custom content here. Anything you draw
     // automatically has the shadow effect applied to it.
     
     //draw border
-
+    
     if(![layerArray count]) return;
     if (isCollision )
     {
-      
+        
         //draw collision rectangle
         [[NSColor redColor] set];
         NSBezierPath  *temp =[NSBezierPath bezierPathWithRect:_rectangleStruct];
         [temp stroke];
         
         [[NSColor yellowColor]set];
-        [_rectangle1 fill];
-        [_rectangle2 fill];
-        [_rectangle3 fill];
-        [_rectangle4 fill];
-    }
-    /*if(isCollision && isImageSelected)
-    {
-        CGRect rectangle;
-//        rectangle.origin.x = collisionRect.origin.x+object_LD.originX+object_LD.width/2;
-//        rectangle.origin.y = collisionRect.origin.y+object_LD.originY+object_LD.height/2;
-//        rectangle.size.width = collisionRect.size.width;
-//        rectangle.size.height = collisionRect.size.height;
-        //rectangle.origin.x = collisionRect.origin.x+object_LD.originX ;
-        //rectangle.origin.y = collisionRect.origin.y+object_LD.originY;//-collisionRect.size.height
-        rectangle.origin.x = object_LD.originX -object_LD.width/2;
-        rectangle.origin.y = object_LD.originY-collisionRect.size.height;//
-
-        rectangle.size.width = collisionRect.size.width;
-        rectangle.size.height = collisionRect.size.height;
-        NSBezierPath *__rectangle = [NSBezierPath bezierPathWithRect:rectangle];
-        NSLog(@"change ... %@",NSStringFromRect(collisionRect));
-             NSLog(@"object ... %f %f %f %f",object_LD.originX,object_LD.originY,object_LD.width,object_LD.height);
-        NSLog(@"collision  ... %@",NSStringFromRect(rectangle));
-
-        [[NSColor redColor] set];
-        [__rectangle stroke];
-        
-        [[NSColor yellowColor]set];
         [_circle fill];
         [_circle2 fill];
         [_circle3 fill];
         [_circle4 fill];
-        
-
-        
-    }*/
+    }
+    /*if(isCollision && isImageSelected)
+     {
+     CGRect rectangle;
+     //        rectangle.origin.x = collisionRect.origin.x+object_LD.originX+object_LD.width/2;
+     //        rectangle.origin.y = collisionRect.origin.y+object_LD.originY+object_LD.height/2;
+     //        rectangle.size.width = collisionRect.size.width;
+     //        rectangle.size.height = collisionRect.size.height;
+     //rectangle.origin.x = collisionRect.origin.x+object_LD.originX ;
+     //rectangle.origin.y = collisionRect.origin.y+object_LD.originY;//-collisionRect.size.height
+     rectangle.origin.x = object_LD.originX -object_LD.width/2;
+     rectangle.origin.y = object_LD.originY-collisionRect.size.height;//
+     
+     rectangle.size.width = collisionRect.size.width;
+     rectangle.size.height = collisionRect.size.height;
+     NSBezierPath *__rectangle = [NSBezierPath bezierPathWithRect:rectangle];
+     NSLog(@"change ... %@",NSStringFromRect(collisionRect));
+     NSLog(@"object ... %f %f %f %f",object_LD.originX,object_LD.originY,object_LD.width,object_LD.height);
+     NSLog(@"collision  ... %@",NSStringFromRect(rectangle));
+     
+     [[NSColor redColor] set];
+     [__rectangle stroke];
+     
+     [[NSColor yellowColor]set];
+     [_circle fill];
+     [_circle2 fill];
+     [_circle3 fill];
+     [_circle4 fill];
+     
+     
+     
+     }*/
     
-
-
+    
+    
     
     
 }
@@ -285,11 +317,11 @@
 
 -(void)setBezierPathCircle:(NSBezierPath*)newBezierPath
 {
-	if( _rectangle1 != newBezierPath)
+	if( _circle != newBezierPath)
 	{
 		[newBezierPath retain];
-		[_rectangle1 release];
-		_rectangle1 = newBezierPath;
+		[_circle release];
+		_circle = newBezierPath;
 		
 	}
 	
@@ -309,29 +341,29 @@
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
-        NSLog(@"draggingEntered master view");
-    if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric) 
+    NSLog(@"draggingEntered master view");
+    if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric)
     {
         return NSDragOperationGeneric;
     }
 	
     // not a drag we can use
-	return NSDragOperationNone;		
+	return NSDragOperationNone;
 }
 
 - (void)draggingEnded:(id <NSDraggingInfo>)sender
 {
     [newWrapperImage setOrigin:[sender draggingLocation]];
     [self addObjectArray];
-    [self setNeedsDisplay:YES];    
+    [self setNeedsDisplay:YES];
 }
 
-- (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender 
+- (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender
 {
     return YES;
 }
 
-- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender 
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
     NSPasteboard *zPasteboard = [sender draggingPasteboard];
 	
@@ -339,36 +371,35 @@
 	
     NSString *zDesiredType = [zPasteboard availableTypeFromArray:zImageTypesAry];
 	
-	if ([zDesiredType isEqualToString:NSPasteboardTypeTIFF]) 
-    { 
+	if ([zDesiredType isEqualToString:NSPasteboardTypeTIFF])
+    {
 		NSData *zPasteboardData   = [zPasteboard dataForType:zDesiredType];
-		if (zPasteboardData == nil) 
+		if (zPasteboardData == nil)
         {
 			NSLog(@"Error: MyNSView performDragOperation zPasteboardData == nil");
 			return NO;
 		}
         
-		return YES;		
+		return YES;
 	}
 	
 	
-    if ([zDesiredType isEqualToString:NSFilenamesPboardType]) 
+    if ([zDesiredType isEqualToString:NSFilenamesPboardType])
     {
 		// the pasteboard contains a list of file names, Take the first one
 		NSArray *zFileNamesAry = [zPasteboard propertyListForType:@"NSFilenamesPboardType"];
-		NSString *zPath = [zFileNamesAry objectAtIndex:0];	
+		NSString *zPath = [zFileNamesAry objectAtIndex:0];
         
         self.newWrapperImage=[[[wrapperImage alloc]init] autorelease];               //object of wrapperImage class which has a NSImage and origin associated with it
         [newWrapperImage setImage:[[NSImage alloc]initWithContentsOfFile:zPath]];
         
+        if (newWrapperImage == nil)
+        {
+            NSLog(@"Error: MyNSView performDragOperation zNewImage == nil");
+            return NO;
+        }
         
-        if (newWrapperImage == nil) 
-            {			
-         		NSLog(@"Error: MyNSView performDragOperation zNewImage == nil");
-          		return NO;
-            }
-
-
+        
         [imagesArrayPath addObject:zPath];
 		return YES;
         
@@ -377,7 +408,7 @@
 	NSLog(@"Error MyNSView performDragOperation");
 	return NO;
 	
-} 
+}
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
 {
@@ -392,7 +423,7 @@
 
 #pragma mark - mouseevent method
 
--(void)mouseDown:(NSEvent *)pTheEvent 
+-(void)mouseDown:(NSEvent *)pTheEvent
 {
     NSPoint mouseLocationInWindow = [pTheEvent locationInWindow];
 	NSPoint mouseLocationInView   = [self convertPoint:mouseLocationInWindow fromView:nil];
@@ -401,15 +432,14 @@
     
     if (!_isRectResize)
     {
-        NSArray *layerArrayReversed = [[layerArray reverseObjectEnumerator] allObjects];
-        for(NSArray*object in layerArrayReversed)
+        for(NSArray*object in layerArray)
         {
             object = [[object reverseObjectEnumerator] allObjects];
             for (TSLayerData*obj in object)
             {
                 
                 if( CGRectContainsPoint(CGRectMake(obj.originX-obj.width/2, obj.originY-obj.height/2, obj.width, obj.height), CGPointMake( mouseLocationInView.x, mouseLocationInView.y)))
-
+                    
                 {
                     self.object_LD = obj;
                     selectedImageIndex = self.object_LD.uniqueID;
@@ -425,7 +455,7 @@
     }
     
     
-
+    
     
     
     if(isImageSelected)
@@ -433,8 +463,8 @@
         [self setNeedsDisplay:YES];
     }
     
-
-
+    
+    
 }
 
 
@@ -446,28 +476,20 @@
     [theMenu insertItemWithTitle:@"Honk" action:@selector(honk) keyEquivalent:@"" atIndex:1];
     
     [NSMenu popUpContextMenu:theMenu withEvent:theEvent forView:self];
-    [theMenu release];
-
+    
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
     NSPoint mouseLocationInWindow = [theEvent locationInWindow];
     NSPoint mouseLocationInView   = [self convertPoint:mouseLocationInWindow fromView:nil];
-
+    
     if(isImageSelected)
     {
         object_LD.originX =  mouseLocationInView.x;
         object_LD.originY =  mouseLocationInView.y;
-        
-        NSPoint  originPoint ;
-        originPoint.x = object_LD.originX;
-        originPoint.y = object_LD.originY;
-        
-        
-        [object_LD.imageObject setOrigin:originPoint];
     }
-
+    
     
     //set scalingfactor
     originPoints.x =object_LD.originX - object_LD.width/2;
@@ -500,62 +522,61 @@
 		[self updateShapeWithRect:newRect];
 		[self setNeedsDisplayInRect:newRect];
         
-//        newRect.origin.x = imagePoints.x;
-//        newRect.origin.y = imagePoints.y+ object_LD.height;
-//        newRect.size.width = 200;
-//        newRect.size.height = 200;
-
+        //        newRect.origin.x = imagePoints.x;
+        //        newRect.origin.y = imagePoints.y+ object_LD.height;
+        //        newRect.size.width = 200;
+        //        newRect.size.height = 200;
+        
         
 	}
     
-//    if(isCollision)
-//    {
-//        if(newRect.origin.x == 0&&newRect.origin.y==0)
-//        {
-//             newRect.origin.x = imagePoints.x;
-//             newRect.origin.y = imagePoints.y+ object_LD.height;
-//        }
-//            
-//        collisionRect.origin.x =  newRect.origin.x -  object_LD.originX;
-//        collisionRect.origin.y =  newRect.origin.y -  object_LD.originY;
-//        
-//        
-//        collisionRect.size.width = newRect.size.width;
-//        collisionRect.size.height = newRect.size.height;
-//
-//    }
+    //    if(isCollision)
+    //    {
+    //        if(newRect.origin.x == 0&&newRect.origin.y==0)
+    //        {
+    //             newRect.origin.x = imagePoints.x;
+    //             newRect.origin.y = imagePoints.y+ object_LD.height;
+    //        }
+    //
+    //        collisionRect.origin.x =  newRect.origin.x -  object_LD.originX;
+    //        collisionRect.origin.y =  newRect.origin.y -  object_LD.originY;
+    //
+    //
+    //        collisionRect.size.width = newRect.size.width;
+    //        collisionRect.size.height = newRect.size.height;
+    //
+    //    }
     
     /*if(isCollision && isImageSelected)
-    {
-        if(newRect.origin.x == 0&&newRect.origin.y==0)
-        {
-            newRect.origin.x = imagePoints.x;
-            newRect.origin.y = imagePoints.y+ object_LD.height;
-        }
-        
-        collisionRect.origin.x =  _rectangleStruct.origin.x -  object_LD.originX;
-        collisionRect.origin.y =  _rectangleStruct.origin.y -  object_LD.originY;
-        
-        
-        collisionRect.size.width = _rectangleStruct.size.width;
-        collisionRect.size.height = _rectangleStruct.size.height;
-        [self updateShapeWithRect:_rectangleStruct];
-        
-    }*/
+     {
+     if(newRect.origin.x == 0&&newRect.origin.y==0)
+     {
+     newRect.origin.x = imagePoints.x;
+     newRect.origin.y = imagePoints.y+ object_LD.height;
+     }
+     
+     collisionRect.origin.x =  _rectangleStruct.origin.x -  object_LD.originX;
+     collisionRect.origin.y =  _rectangleStruct.origin.y -  object_LD.originY;
+     
+     
+     collisionRect.size.width = _rectangleStruct.size.width;
+     collisionRect.size.height = _rectangleStruct.size.height;
+     [self updateShapeWithRect:_rectangleStruct];
+     
+     }*/
     
     
-
+    
     //setting origin for the only image which has been clicked in mouseDown instead of again iterating over the whole image array r
     
-
+    
     
     
 	[self setNeedsDisplay:YES];
     
     
-    if (delegate && [delegate respondsToSelector:@selector(doStuff:)])
-    {
-    [delegate doStuff:theEvent];
+    if (delegate && [delegate respondsToSelector:@selector(doStuff:)]) {
+        [delegate doStuff:theEvent];
     }
     return;
 }
@@ -590,11 +611,7 @@
     return;
 }
 
-- (void)magnifyWithEvent:(NSEvent *)event 
 
-{
-    NSLog(@"Zoom");
-}
 
 #pragma mark - keyEvent opreatons
 
@@ -683,10 +700,7 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
     [[layerArray objectAtIndex:[[item identifier] intValue ]] addObject:obj_TSLayerData];
     [obj_TSLayerData release];
     
-    if (self.frame.size.height<[newWrapperImage getImage].size.height)
-    {
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width,[newWrapperImage getImage].size.height );
-    }
+    
 }
 
 
@@ -701,7 +715,7 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
     dirtyRect = NSMakeRect( collisionRect.origin.x, collisionRect.origin.y, collisionRect.size.width ,collisionRect.size.height);
     [self updateShapeWithRect:dirtyRect];
     [self setNeedsDisplay:YES];
-
+    
 }
 
 
@@ -724,8 +738,43 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
 
 -(void)saveData
 {
-
- 
+    /*BOOL success;
+    NSError *error;
+    
+    
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"Property List.plist"];
+    
+    success = [fileManager fileExistsAtPath:filePath];
+    if (!success)
+    {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"Property List" ofType:@"plist"];
+        success = [fileManager copyItemAtPath:path toPath:filePath error:&error];
+        
+    }
+    
+    
+    // set data
+    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject: self.layerArray];
+    [encodedObject writeToFile: filePath atomically: YES];
+    
+    if(encodedObject)
+    {
+        [encodedObject writeToFile: filePath atomically:YES];
+        
+        return;
+    }
+    else
+    {
+        NSLog(@"error");
+    }
+    
+    
+    NSDictionary *plistData = [NSDictionary dictionaryWithContentsOfFile:filePath];*/
+    [self setNeedsDisplay:YES];
 }
 
 -(void)openData
@@ -733,13 +782,13 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
     /*NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"Property List.plist"];
-
+    
     NSData  *modelData = [NSData dataWithContentsOfFile:filePath];
     
     if (modelData != nil)
     {
         // retrieve stored data
-        masterView *obj_ProfileModelUnarchiever = [[masterView alloc] init];
+        TSMasterView *obj_ProfileModelUnarchiever = [[TSMasterView alloc] init];
         obj_ProfileModelUnarchiever. layerArray = [NSKeyedUnarchiver unarchiveObjectWithData: modelData];
         
         NSLog(@"loadFromSerializedObjects %@", obj_ProfileModelUnarchiever. layerArray);
@@ -750,121 +799,12 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
             [self.layerArray addObjectsFromArray:obj_ProfileModelUnarchiever. layerArray];
             [self setNeedsDisplay:YES];
         }
-
+        
     }*/
     
-    
     [self setNeedsDisplay:YES];
-
-
-}
-
-float y =1;
-- (void)scrollWheel:(NSEvent *)theEvent
-{
-    
-//    if (delegate && [delegate respondsToSelector:@selector(zoom:)])
-//    {
-//        [delegate zoom:theEvent];
-//    }
-//    
-    
-        
-    if ([theEvent deltaY] >0.0)
-    {
-        [self zoom:y event:theEvent];
-        y= y+.01;
-
-    }
-    else if([theEvent deltaY] <0.0)
-    {
-        if (y>.5)
-        {
-            [self zoom:y event:theEvent];
-            y= y-.01;
-
-        }
-
-    }
-
-}
-
-static const NSSize unitSize = {1.5, 1.5};
-
-// Returns the scale of the receiver's coordinate system, relative to the window's base coordinate system.
-- (NSSize)scale;
-{
-    return [self convertSize:unitSize toView:nil];
-}
-
-// Sets the scale in absolute terms.
-- (void)setScale:(NSSize)newScale;
-{
-    [self resetScaling]; // First, match our scaling to the window's coordinate system
-    [self scaleUnitSquareToSize:newScale]; // Then, set the scale.
-    [self setNeedsDisplay:YES]; // Finally, mark the view as needing to be redrawn
-}
-
-// Makes the scaling of the receiver equal to the window's base coordinate system.
-- (void)resetScaling;
-{
-    [self scaleUnitSquareToSize:[self convertSize:unitSize fromView:nil]];
-}
-
-
-- (void)setZoom:(CGFloat)scaleFactor {
-//    NSRect frame = [self frame];
-//    NSRect bounds = [self bounds];
-//    frame.size.width = bounds.size.width * scaleFactor;
-//    frame.size.height = bounds.size.height * scaleFactor;
-
-    //[self setFrameSize: frame.size];    // Change the view's size.
-    
-    //[self scaleUnitSquareToSize:NSMakeSize(1000, 1000)];
-    //[self setBoundsSize: bounds.size];
-    NSSize sz = NSSizeFromString(@"{1.75,1.75}");
-    [self scaleUnitSquareToSize:sz];
-    [self  setNeedsDisplay:YES];
-}
-
-
--(void)zoom:(float)newFactor event:(NSEvent *)mouseEvent
-{
-    //self.frame = NSMakeRect(self.frame.origin.x, self.frame.origin.y, self.frame.size.width*newFactor, self.frame.size.height*newFactor);
-
-    
-    NSScrollView *scrollView = obj_TSController.scrollView;
-    NSClipView *clipView = [scrollView contentView];
-    NSRect clipViewBounds = [clipView bounds];
-    NSSize clipViewSize = [clipView frame].size;
-    
-    NSPoint clipLocalPoint = [clipView convertPoint:[mouseEvent
-                                                     locationInWindow] fromView:nil];
-    
-    float xFraction = ( clipLocalPoint.x - clipViewBounds.origin.x ) /
-    clipViewBounds.size.width;
-    float yFraction = ( clipLocalPoint.y - clipViewBounds.origin.y ) /
-    clipViewBounds.size.height;
-    
-    clipViewBounds.size.width = clipViewSize.width / newFactor;
-    clipViewBounds.size.height = clipViewSize.height / newFactor;
-    
-    clipViewBounds.origin.x = clipLocalPoint.x - ( xFraction *
-                                                  clipViewBounds.size.width );
-    clipViewBounds.origin.y = clipLocalPoint.y - ( yFraction *
-                                                  clipViewBounds.size.height );
-    
-    [clipView setBounds:clipViewBounds];
-    
     
 }
-
--(void)resetView
-{
-    [layerArray removeAllObjects];
-    [self setNeedsDisplay:YES];
-}
-
 
 #pragma mark - memory management
 
@@ -880,4 +820,5 @@ static const NSSize unitSize = {1.5, 1.5};
     
     [super dealloc];
 }
+
 @end

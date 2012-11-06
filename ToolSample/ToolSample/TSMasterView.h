@@ -1,9 +1,9 @@
 //
-//  MasterView.h
-//  image-browser-appearance
+//  TSMasterView.h
+//  ToolSample
 //
-//  Created by Prashant on 12/09/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Created by prashant shukla on 05/11/12.
+//  Copyright (c) 2012 prashant shukla. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -11,7 +11,8 @@
 #import "TSController.h"
 #import "TSLayerData.h"
 
-@interface masterView : NSView
+@interface TSMasterView : NSView
+
 {
     //array
     NSMutableArray                      *imagesArrayPath;
@@ -22,8 +23,8 @@
     
     
     NSBezierPath                        *_rectangle;
-    NSBezierPath                        *_rectangle1, *_rectangle2, *_rectangle3, *_rectangle4;
-
+    NSBezierPath                        *_circle, *_circle2, *_circle3, *_circle4;
+    
 	NSRect                              _rectangleStruct;
 	NSPoint                             _stationaryOrigin;
 	NSPoint                             originPoints;
@@ -33,7 +34,7 @@
     BOOL                                _isRectResize;
     BOOL                                isImageSelected;
     
-
+    
     //int
     int                                 flag;
     int                                 selectedImageIndex;
@@ -55,7 +56,7 @@
 @property(nonatomic,retain)    TSLayerData                         *object_LD;
 @property(nonatomic,assign)    NSPoint                             originPoints;
 
-//getter 
+//getter
 -(NSMutableArray*)                      imagesArrayPath;
 
 
@@ -74,4 +75,3 @@
 - (void)setDelegate:(id<MyViewDelegate>)_delegate;
 
 @end
-

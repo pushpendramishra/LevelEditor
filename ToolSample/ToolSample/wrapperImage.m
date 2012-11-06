@@ -20,6 +20,7 @@
     if (self)
     {
         self.imageOnView    =   [[[NSImage alloc] init] autorelease] ;
+        self.imageOnView.scalesWhenResized = YES;
     }
     return self;
 }
@@ -58,6 +59,7 @@
 }
 
 - (NSImage*)getImage
+
 {
 	return self.imageOnView;
 }
@@ -68,6 +70,7 @@
 - (void)setOrigin:(NSPoint)newOrigin
 {
     origin=newOrigin;
+    
 }
 
 - (NSPoint)getOriginPoint
@@ -81,6 +84,14 @@
 - (void)dealloc
 {
     [super dealloc];
+}
+
+
+- (void)drawRect:(NSRect)dirtyRect
+{
+    // Fill in background Color
+    [[NSColor clearColor] setFill];
+    NSRectFill(dirtyRect);
 }
 
 @end

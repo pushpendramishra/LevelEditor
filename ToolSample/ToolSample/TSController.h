@@ -12,6 +12,9 @@
 // ###### Custom Protocol #######
 @protocol MyViewDelegate
 - (void)doStuff:(NSEvent *)event;
+- (void)zoom:(NSEvent *)event;
+- (void)callSubViewDrawRect;
+
 @end
 
 // ###### Forward Class Declaration ########
@@ -55,6 +58,7 @@
 - (void)fetchedFiles:(NSArray*)path;
 - (void)setContentSize:(NSSize*)size;
 
+
 // ########  Actions Events !!
 - (IBAction)collision:(id)sender;
 - (IBAction)addImageButtonClicked:(id)sender;
@@ -70,6 +74,7 @@
 
 // ####### Protocol Methods !!
 - (void)doStuff:(NSEvent *)event;
+- (void)zoom:(NSEvent *)event;
 
 
 @end

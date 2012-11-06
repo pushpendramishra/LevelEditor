@@ -795,13 +795,14 @@ static NSArray* openFiles()
 int offset =0 ;;
 - (void)doStuff:(NSEvent *)event
 {    
-    xPositionField.stringValue = [NSString stringWithFormat:@"%f",masterView_object.mousePoints.x];
-    yPositionField.stringValue = [NSString stringWithFormat:@"%f",masterView_object.frame.size.height-masterView_object.mousePoints.y-masterView_object.object_LD.height];
+    xPositionField.stringValue = [NSString stringWithFormat:@"%f",masterView_object.originPoints.x];
+    yPositionField.stringValue = [NSString stringWithFormat:@"%f",masterView_object.frame.size.height-masterView_object.originPoints.y-masterView_object.object_LD.height];
     
     NSLog(@"   ImagePoints = %f %f %f %f",masterView_object.object_LD.width,masterView_object.object_LD.height,masterView_object.object_LD.originX,masterView_object.object_LD.originY);
     
     NSLog(@" Scroll View   ImagePoints = %@",NSStringFromRect([[scrollView contentView] visibleRect]));
      NSLog(@"Objectc jfjv;dfibidfk  ImagePoints = %@",NSStringFromRect(masterView_object.frame));
+    
     if (masterView_object.object_LD.originX > [[scrollView contentView] visibleRect].origin.x + [[scrollView contentView] visibleRect].size.width)
     {
         masterView_object.frame = CGRectMake(masterView_object.frame.origin.x, masterView_object.frame.origin.y, masterView_object.frame.size.width+masterView_object.object_LD.width/2, masterView_object.frame.size.height);
@@ -817,7 +818,13 @@ int offset =0 ;;
     }
 }
 
-
-
+- (void)callSubViewDrawRect
+{
+    [masterView_object.newWrapperImage setNeedsDisplay:YES];
+}
+- (void)zoom:(NSEvent *)event
+{
+    //[scrollView setDocumentView:masterView_object];
+}
 
 @end
