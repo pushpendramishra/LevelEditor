@@ -12,8 +12,7 @@
 // ###### Custom Protocol #######
 @protocol MyViewDelegate
 - (void)doStuff:(NSEvent *)event;
-- (void)zoom:(NSEvent *)event;
-- (void)callSubViewDrawRect;
+
 
 @end
 
@@ -56,7 +55,6 @@
 
 // ######## Supporting Methods !!
 - (void)fetchedFiles:(NSArray*)path;
-- (void)setContentSize:(NSSize*)size;
 
 
 // ########  Actions Events !!
@@ -74,7 +72,6 @@
 
 // ####### Protocol Methods !!
 - (void)doStuff:(NSEvent *)event;
-- (void)zoom:(NSEvent *)event;
 
 
 @end

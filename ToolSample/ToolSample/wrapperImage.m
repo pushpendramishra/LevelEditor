@@ -10,6 +10,8 @@
 
 
 @implementation wrapperImage
+@synthesize imageOnView;
+@synthesize origin;
 
 // ######################################
 // ######### Initialization #############

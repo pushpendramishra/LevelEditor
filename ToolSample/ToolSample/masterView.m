@@ -58,8 +58,10 @@
 	}
     
     
+    
 	return didHitCircle;
 }
+
 
 -(void)updateShapeWithRect:(NSRect)newRect
 {
@@ -102,6 +104,8 @@
 		[_rectangle4 release];
 	}
 	_rectangle4 = [[NSBezierPath bezierPathWithRect:circle4Rect]retain];
+    
+    collisionPath = [[NSBezierPath bezierPathWithRect:newRect]retain];
 	
 }
 
@@ -164,6 +168,8 @@
     collisionRect.size.width =  object_LD.width/2;
     collisionRect.size.height =object_LD.height/2;
     [self updateShapeWithRect:dirtyRect];
+    
+    collisionPath = [NSBezierPath bezierPathWithRect:collisionRect];
     [self setNeedsDisplay:YES];
 	
 }
@@ -187,7 +193,7 @@
             NSRect imageRect;
             imageRect = NSMakeRect(obj.originX-obj.width/2,obj.originY-obj.height/2,  obj.width ,obj.height);
 
-            //[[obj.imageObject getImage] drawInRect:imageRect fromRect:imageRect operation:NSCompositeSourceOver fraction:1];
+           // [[obj.imageObject getImage] drawInRect:NSZeroRect fromRect:imageRect operation:NSCompositeSourceOver fraction:1];
             [[obj.imageObject getImage] compositeToPoint:NSMakePoint(obj.originX-obj.width/2,obj.originY-obj.height/2) operation:NSCompositeSourceOver];
             
             if(isImageSelected)
@@ -399,6 +405,7 @@
 	
 	_isRectResize = [self getOriginOfRectFromHitPoint:mouseLocationInView outOrigin:&_stationaryOrigin] ;
     
+    
     if (!_isRectResize)
     {
         NSArray *layerArrayReversed = [[layerArray reverseObjectEnumerator] allObjects];
@@ -460,12 +467,6 @@
         object_LD.originX =  mouseLocationInView.x;
         object_LD.originY =  mouseLocationInView.y;
         
-        NSPoint  originPoint ;
-        originPoint.x = object_LD.originX;
-        originPoint.y = object_LD.originY;
-        
-        
-        [object_LD.imageObject setOrigin:originPoint];
     }
 
     
@@ -507,6 +508,8 @@
 
         
 	}
+    
+    
     
 //    if(isCollision)
 //    {
@@ -552,7 +555,7 @@
     
 	[self setNeedsDisplay:YES];
     
-    
+    //call delegate method for mouse events
     if (delegate && [delegate respondsToSelector:@selector(doStuff:)])
     {
     [delegate doStuff:theEvent];
@@ -590,11 +593,6 @@
     return;
 }
 
-- (void)magnifyWithEvent:(NSEvent *)event 
-
-{
-    NSLog(@"Zoom");
-}
 
 #pragma mark - keyEvent opreatons
 
@@ -763,13 +761,7 @@ float y =1;
 - (void)scrollWheel:(NSEvent *)theEvent
 {
     
-//    if (delegate && [delegate respondsToSelector:@selector(zoom:)])
-//    {
-//        [delegate zoom:theEvent];
-//    }
-//    
     
-        
     if ([theEvent deltaY] >0.0)
     {
         [self zoom:y event:theEvent];

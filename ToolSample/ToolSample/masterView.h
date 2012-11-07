@@ -20,14 +20,17 @@
     NSMutableArray                      *middleLayerArray;
     NSMutableArray                      *topLayerArray;
     
-    
+    //BezierPath
     NSBezierPath                        *_rectangle;
-    NSBezierPath                        *_rectangle1, *_rectangle2, *_rectangle3, *_rectangle4;
+    NSBezierPath                        *_rectangle1, *_rectangle2, *_rectangle3, *_rectangle4,*collisionPath;
 
+    //Rect
 	NSRect                              _rectangleStruct;
+    NSRect                              collisionRect;
+
+    //Points
 	NSPoint                             _stationaryOrigin;
 	NSPoint                             originPoints;
-    NSRect                              collisionRect;
     
     //bool
     BOOL                                _isRectResize;
