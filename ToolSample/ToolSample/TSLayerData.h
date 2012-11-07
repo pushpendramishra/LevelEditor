@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "wrapperImage.h"
+#import "WrapperImage.h"
 @interface TSLayerData : NSObject <NSCoding>
 {
-    wrapperImage        *imageObject;
+    WrapperImage        *imageObject;
     int                 uniqueID;
     int                 ID;
     int                 zOrder;
@@ -21,7 +21,7 @@
 }
 
 
-@property (nonatomic,retain) wrapperImage        *imageObject;
+@property (nonatomic,retain) WrapperImage        *imageObject;
 @property (nonatomic,assign) int                 uniqueID;
 @property (nonatomic,assign) int                 ID;
 @property (nonatomic,assign) int                 zOrder;

@@ -6,20 +6,20 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "masterView.h"
+#import "MasterView.h"
 #import "TSLayerData.h"
 
 
 #define RECT_WIDTH 200.0
 #define CIRCLE_WIDTH 20.0
 
-@interface masterView(Private)
+@interface MasterView(Private)
 -(void)updateShapeWithRect:(NSRect)newRect;
 -(BOOL)getOriginOfRectFromHitPoint:(NSPoint)localPoint outOrigin:(NSPoint *)outOrigin;
 @end
 
 
-@implementation masterView(Private)
+@implementation MasterView(Private)
 
 
 #pragma mark - private method
@@ -105,12 +105,11 @@
 	}
 	_rectangle4 = [[NSBezierPath bezierPathWithRect:circle4Rect]retain];
     
-    collisionPath = [[NSBezierPath bezierPathWithRect:newRect]retain];
 	
 }
 
 @end
-@implementation masterView
+@implementation MasterView
 @synthesize isCollision;
 @synthesize obj_TSController;
 @synthesize newWrapperImage;
@@ -146,6 +145,8 @@
     topLayerArray = [[NSMutableArray alloc]init];
     
     
+
+    
     self.object_LD = [[[TSLayerData alloc]init ]autorelease];
     
     //add 
@@ -169,7 +170,6 @@
     collisionRect.size.height =object_LD.height/2;
     [self updateShapeWithRect:dirtyRect];
     
-    collisionPath = [NSBezierPath bezierPathWithRect:collisionRect];
     [self setNeedsDisplay:YES];
 	
 }
@@ -315,7 +315,13 @@
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
-        NSLog(@"draggingEntered master view");
+    NSLog(@"draggingEntered master view");
+    if (!isFirstTime)
+    {
+        defaultSize = self.frame.size.width;
+        isFirstTime =YES;
+    }
+    
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric) 
     {
         return NSDragOperationGeneric;
@@ -325,9 +331,23 @@
 	return NSDragOperationNone;		
 }
 
+
 - (void)draggingEnded:(id <NSDraggingInfo>)sender
 {
-    [newWrapperImage setOrigin:[sender draggingLocation]];
+    
+    //set origin
+    if (defaultSize<self.frame.size.width)
+    {
+        float diff = self.frame.size.width - defaultSize;
+        location = [sender draggedImageLocation];
+        location.x = location.x+diff;
+    }
+    else
+    {
+        location = [sender draggingLocation];
+    }
+    
+    [newWrapperImage setOrigin:location];
     [self addObjectArray];
     [self setNeedsDisplay:YES];    
 }
@@ -364,7 +384,7 @@
 		NSArray *zFileNamesAry = [zPasteboard propertyListForType:@"NSFilenamesPboardType"];
 		NSString *zPath = [zFileNamesAry objectAtIndex:0];	
         
-        self.newWrapperImage=[[[wrapperImage alloc]init] autorelease];               //object of wrapperImage class which has a NSImage and origin associated with it
+        self.newWrapperImage=[[[WrapperImage alloc]init] autorelease];               //object of wrapperImage class which has a NSImage and origin associated with it
         [newWrapperImage setImage:[[NSImage alloc]initWithContentsOfFile:zPath]];
         
         

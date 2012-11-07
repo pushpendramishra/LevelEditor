@@ -7,11 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "wrapperImage.h"
+#import "WrapperImage.h"
 #import "TSController.h"
 #import "TSLayerData.h"
 
-@interface masterView : NSView
+@interface MasterView : NSView
 {
     //array
     NSMutableArray                      *imagesArrayPath;
@@ -22,7 +22,7 @@
     
     //BezierPath
     NSBezierPath                        *_rectangle;
-    NSBezierPath                        *_rectangle1, *_rectangle2, *_rectangle3, *_rectangle4,*collisionPath;
+    NSBezierPath                        *_rectangle1, *_rectangle2, *_rectangle3, *_rectangle4;
 
     //Rect
 	NSRect                              _rectangleStruct;
@@ -31,19 +31,23 @@
     //Points
 	NSPoint                             _stationaryOrigin;
 	NSPoint                             originPoints;
-    
+    NSPoint                             location;
     //bool
     BOOL                                _isRectResize;
     BOOL                                isImageSelected;
+    BOOL                                isFirstTime;
     
 
     //int
     int                                 flag;
     int                                 selectedImageIndex;
     int                                 counter;
+    float                               defaultSize;
+    
+    
     
     //class object
-    wrapperImage                        *newWrapperImage;
+    WrapperImage                        *newWrapperImage;
     TSController                        *obj_TSController;
     TSLayerData                         *object_LD;
     
@@ -54,7 +58,7 @@
 @property (assign)      NSMutableArray                             *layerArray;
 @property (nonatomic)   BOOL                                       isCollision;
 @property (nonatomic,retain)   TSController                        *obj_TSController;
-@property(nonatomic,retain)    wrapperImage                        *newWrapperImage;
+@property(nonatomic,retain)    WrapperImage                        *newWrapperImage;
 @property(nonatomic,retain)    TSLayerData                         *object_LD;
 @property(nonatomic,assign)    NSPoint                             originPoints;
 

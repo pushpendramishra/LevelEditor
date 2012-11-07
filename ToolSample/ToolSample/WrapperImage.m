@@ -6,10 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "wrapperImage.h"
+#import "WrapperImage.h"
 
 
-@implementation wrapperImage
+@implementation WrapperImage
 @synthesize imageOnView;
 @synthesize origin;
 

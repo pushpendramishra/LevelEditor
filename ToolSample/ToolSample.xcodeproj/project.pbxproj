@@ -14,7 +14,7 @@
 		982DDD04163118A40058738B /* TSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 982DDD03163118A40058738B /* TSAppDelegate.m */; };
 		982DDD07163118A40058738B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982DDD05163118A40058738B /* MainMenu.xib */; };
 		982DDD0F163118C80058738B /* TSController.m in Sources */ = {isa = PBXBuildFile; fileRef = 982DDD0E163118C80058738B /* TSController.m */; };
-		982DDD1716311A1D0058738B /* masterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 982DDD1016311A1C0058738B /* masterView.m */; };
+		982DDD1716311A1D0058738B /* MasterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 982DDD1016311A1C0058738B /* MasterView.m */; };
 		982DDD1816311A1D0058738B /* ImageBrowserCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 982DDD1416311A1D0058738B /* ImageBrowserCell.mm */; };
 		982DDD1916311A1D0058738B /* ImageBrowserView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 982DDD1616311A1D0058738B /* ImageBrowserView.mm */; };
 		982DDD1B16311A390058738B /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 982DDD1A16311A390058738B /* Quartz.framework */; };
@@ -48,7 +48,7 @@
 		982DDD5616311DEC0058738B /* UI_Day7.png in Resources */ = {isa = PBXBuildFile; fileRef = 982DDD3816311DEC0058738B /* UI_Day7.png */; };
 		982DDD5716311DEC0058738B /* UI_Day8.png in Resources */ = {isa = PBXBuildFile; fileRef = 982DDD3916311DEC0058738B /* UI_Day8.png */; };
 		982DDD5816311DEC0058738B /* UI_Day9.png in Resources */ = {isa = PBXBuildFile; fileRef = 982DDD3A16311DEC0058738B /* UI_Day9.png */; };
-		982DDD5B16311E860058738B /* wrapperImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 982DDD5A16311E860058738B /* wrapperImage.m */; };
+		982DDD5B16311E860058738B /* WrapperImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 982DDD5A16311E860058738B /* WrapperImage.m */; };
 		983EAB511641064C00B4A5B1 /* File.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 983EAB501641064C00B4A5B1 /* File.rtf */; };
 		98ED564F163AC60C0013ABC4 /* TSLayerData.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ED564E163AC60C0013ABC4 /* TSLayerData.m */; };
 		ABBE402B164126A1006B5F67 /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABBE402A164126A1006B5F67 /* Property List.plist */; };
@@ -70,9 +70,9 @@
 		982DDD06163118A40058738B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		982DDD0D163118C80058738B /* TSController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSController.h; sourceTree = "<group>"; };
 		982DDD0E163118C80058738B /* TSController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSController.m; sourceTree = "<group>"; };
-		982DDD1016311A1C0058738B /* masterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = masterView.m; sourceTree = "<group>"; };
-		982DDD1116311A1C0058738B /* masterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = masterView.h; sourceTree = "<group>"; };
-		982DDD1216311A1C0058738B /* wrapperImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wrapperImage.h; sourceTree = "<group>"; };
+		982DDD1016311A1C0058738B /* MasterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterView.m; sourceTree = "<group>"; };
+		982DDD1116311A1C0058738B /* MasterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterView.h; sourceTree = "<group>"; };
+		982DDD1216311A1C0058738B /* WrapperImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrapperImage.h; sourceTree = "<group>"; };
 		982DDD1316311A1C0058738B /* ImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserCell.h; sourceTree = "<group>"; };
 		982DDD1416311A1D0058738B /* ImageBrowserCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageBrowserCell.mm; sourceTree = "<group>"; };
 		982DDD1516311A1D0058738B /* ImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserView.h; sourceTree = "<group>"; };
@@ -108,9 +108,7 @@
 		982DDD3816311DEC0058738B /* UI_Day7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UI_Day7.png; sourceTree = "<group>"; };
 		982DDD3916311DEC0058738B /* UI_Day8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UI_Day8.png; sourceTree = "<group>"; };
 		982DDD3A16311DEC0058738B /* UI_Day9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UI_Day9.png; sourceTree = "<group>"; };
-		982DDD5A16311E860058738B /* wrapperImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wrapperImage.m; sourceTree = "<group>"; };
-		983C8ADF164795DE00D32816 /* TSMasterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMasterView.h; sourceTree = "<group>"; };
-		983C8AE0164795DE00D32816 /* TSMasterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMasterView.m; sourceTree = "<group>"; };
+		982DDD5A16311E860058738B /* WrapperImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WrapperImage.m; sourceTree = "<group>"; };
 		983EAB501641064C00B4A5B1 /* File.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = File.rtf; sourceTree = "<group>"; };
 		98ED564D163AC60C0013ABC4 /* TSLayerData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSLayerData.h; sourceTree = "<group>"; };
 		98ED564E163AC60C0013ABC4 /* TSLayerData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSLayerData.m; sourceTree = "<group>"; };
@@ -165,15 +163,12 @@
 			children = (
 				982DDD02163118A40058738B /* TSAppDelegate.h */,
 				982DDD03163118A40058738B /* TSAppDelegate.m */,
-				982DDD05163118A40058738B /* MainMenu.xib */,
 				982DDD0D163118C80058738B /* TSController.h */,
 				982DDD0E163118C80058738B /* TSController.m */,
-				982DDD1116311A1C0058738B /* masterView.h */,
-				982DDD1016311A1C0058738B /* masterView.m */,
-				982DDD1216311A1C0058738B /* wrapperImage.h */,
-				982DDD5A16311E860058738B /* wrapperImage.m */,
-				983C8ADF164795DE00D32816 /* TSMasterView.h */,
-				983C8AE0164795DE00D32816 /* TSMasterView.m */,
+				982DDD1116311A1C0058738B /* MasterView.h */,
+				982DDD1016311A1C0058738B /* MasterView.m */,
+				982DDD1216311A1C0058738B /* WrapperImage.h */,
+				982DDD5A16311E860058738B /* WrapperImage.m */,
 				982DDD1316311A1C0058738B /* ImageBrowserCell.h */,
 				982DDD1416311A1D0058738B /* ImageBrowserCell.mm */,
 				982DDD1516311A1D0058738B /* ImageBrowserView.h */,
@@ -210,6 +205,7 @@
 		982DDD6D163134670058738B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				982DDD05163118A40058738B /* MainMenu.xib */,
 				982DDD1C16311DEB0058738B /* Non Retina */,
 			);
 			name = Resources;
@@ -353,10 +349,10 @@
 				982DDCFD163118A40058738B /* main.m in Sources */,
 				982DDD04163118A40058738B /* TSAppDelegate.m in Sources */,
 				982DDD0F163118C80058738B /* TSController.m in Sources */,
-				982DDD1716311A1D0058738B /* masterView.m in Sources */,
+				982DDD1716311A1D0058738B /* MasterView.m in Sources */,
 				982DDD1816311A1D0058738B /* ImageBrowserCell.mm in Sources */,
 				982DDD1916311A1D0058738B /* ImageBrowserView.mm in Sources */,
-				982DDD5B16311E860058738B /* wrapperImage.m in Sources */,
+				982DDD5B16311E860058738B /* WrapperImage.m in Sources */,
 				98ED564F163AC60C0013ABC4 /* TSLayerData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

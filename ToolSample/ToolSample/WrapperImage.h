@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 
-@interface wrapperImage : NSImageView
+@interface WrapperImage : NSImageView
 {
     NSImage* imageOnView;
     NSPoint  origin;

@@ -17,7 +17,7 @@
 @end
 
 // ###### Forward Class Declaration ########
-@class masterView;
+@class MasterView;
 
 
 @interface TSController : NSObject <MyViewDelegate>
@@ -40,15 +40,14 @@
     NSMutableArray                                  *importedImages;
     
     //
-    masterView                                      *masterView_object;
+    MasterView                                      *masterView_object;
     NSPoint                                         scalingFactor;
-    int                                             check;
     NSInteger                                       selectedTab;
     NSTimer                                         *t_AnimationTimer;
 }
 
 @property (assign) IBOutlet NSWindow                *window;
-@property (assign) IBOutlet masterView              *masterView_object;
+@property (assign) IBOutlet MasterView              *masterView_object;
 @property (nonatomic,retain) IBOutlet NSTabView     *tabView;
 @property (nonatomic,retain) IBOutlet NSScrollView  *scrollView;
 @property (nonatomic,assign) NSInteger              selectedTab;

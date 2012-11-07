@@ -129,7 +129,6 @@ static NSArray* openFiles()
     
     [masterView_object setDelegate:self];
     
-     
     //
     masterView_object.obj_TSController = self;
     images = [[NSMutableArray alloc] init];
@@ -519,7 +518,7 @@ static NSArray* openFiles()
                 if (data != nil)
                 {
                     // retrieve stored data
-                    masterView *obj_ProfileModelUnarchiever = [[masterView alloc] init];
+                    MasterView *obj_ProfileModelUnarchiever = [[MasterView alloc] init];
                     obj_ProfileModelUnarchiever. layerArray = [NSKeyedUnarchiver unarchiveObjectWithData: data];
                     
                     NSLog(@"loadFromSerializedObjects %@", obj_ProfileModelUnarchiever. layerArray);
@@ -593,10 +592,6 @@ static NSArray* openFiles()
 }
 
 
-- (IBAction)tabView:(id)sender
-{
-
-}
 
 - (IBAction)collision:(id)sender
 {
@@ -801,16 +796,7 @@ int offset =0 ;
     xPositionField.stringValue = [NSString stringWithFormat:@"%f",masterView_object.originPoints.x];
     yPositionField.stringValue = [NSString stringWithFormat:@"%f",masterView_object.frame.size.height-masterView_object.originPoints.y-masterView_object.object_LD.height];
     
-    
-    
-    NSLog(@"   ImagePoints = %f %f %f %f",masterView_object.object_LD.width,masterView_object.object_LD.height,masterView_object.object_LD.originX,masterView_object.object_LD.originY);
-    
-    NSLog(@" Scroll View   ImagePoints = %@",NSStringFromRect([[scrollView contentView] visibleRect]));
-     NSLog(@"Objectc jfjv;dfibidfk  ImagePoints = %@",NSStringFromRect(masterView_object.frame));
-    
-    
     float temp = [[scrollView contentView] visibleRect].origin.x;
-    //NSPoint temp = [[scrollView contentView] visibleRect].origin;
     
     if (masterView_object.object_LD.originX > [[scrollView contentView] visibleRect].origin.x + [[scrollView contentView] visibleRect].size.width)
     {
@@ -820,10 +806,12 @@ int offset =0 ;
        offset += masterView_object.object_LD.width/2;
        [[scrollView contentView] scrollToPoint:NSMakePoint(offset , 0)];*/
         
+        NSLog(@"origin of scrollview%f",[[scrollView contentView] visibleRect].origin.x);
+        
         //increse view width
         masterView_object.frame = CGRectMake(masterView_object.frame.origin.x, masterView_object.frame.origin.y, masterView_object.frame.size.width+masterView_object.object_LD.width/2, masterView_object.frame.size.height);
         [scrollView setDocumentView:masterView_object];
-        offset += masterView_object.object_LD.width/2;
+
         [NSAnimationContext beginGrouping];
         [[NSAnimationContext currentContext] setDuration:2.0f];
         NSClipView* clipView = [scrollView contentView];
@@ -831,6 +819,13 @@ int offset =0 ;
         newOrigin.x = temp+masterView_object.object_LD.width;
         [[clipView animator] setBoundsOrigin:newOrigin];
         [NSAnimationContext endGrouping];
+        
+        
+        
+        
+        NSLog(@"origin of scrollview%f",[[scrollView contentView] visibleRect].origin.x+temp+masterView_object.object_LD.width);
+
+
 
     }
     else if (masterView_object.object_LD.originX <= [[scrollView contentView] visibleRect].origin.x && [[scrollView contentView] visibleRect].origin.x > 0)
@@ -840,7 +835,6 @@ int offset =0 ;
         /*offset -= masterView_object.object_LD.width/2;
         [[scrollView contentView] scrollToPoint:NSMakePoint(offset , 0)];*/
         
-        offset -= masterView_object.object_LD.width/2;
         [NSAnimationContext beginGrouping];
         [[NSAnimationContext currentContext] setDuration:2.0f];
         NSClipView* clipView = [scrollView contentView];
@@ -853,9 +847,10 @@ int offset =0 ;
     else if(masterView_object.object_LD.originY > [[scrollView contentView] visibleRect].origin.y + [[scrollView contentView] visibleRect].size.height)
     {
         //increase view height
-        masterView_object.frame = CGRectMake(masterView_object.frame.origin.x, masterView_object.frame.origin.y, masterView_object.frame.size.width, masterView_object.frame.size.height+masterView_object.object_LD.height/2);
+        masterView_object.frame = CGRectMake(masterView_object.frame.origin.x, masterView_object.frame.origin.y, masterView_object.frame.size.width, masterView_object.frame.size.height+masterView_object.object_LD.height/2
+                                             );
         [scrollView setDocumentView:masterView_object];
-        offset += masterView_object.object_LD.height/2;
+
         [NSAnimationContext beginGrouping];
         [[NSAnimationContext currentContext] setDuration:2.0f];
         NSClipView* clipView = [scrollView contentView];
@@ -863,11 +858,13 @@ int offset =0 ;
         newOrigin.y = temp+masterView_object.object_LD.height;
         [[clipView animator] setBoundsOrigin:newOrigin];
         [NSAnimationContext endGrouping];
+        
+
+
     }
     else if (masterView_object.object_LD.originY <= [[scrollView contentView] visibleRect].origin.y && [[scrollView contentView] visibleRect].origin.y > 0)
     {
         //reset origin Y
-        offset -= masterView_object.object_LD.height/2;
         [NSAnimationContext beginGrouping];
         [[NSAnimationContext currentContext] setDuration:2.0f];
         NSClipView* clipView = [scrollView contentView];
