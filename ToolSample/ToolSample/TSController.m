@@ -112,13 +112,6 @@ static NSArray* openFiles()
 
 
 
-- (void)dealloc
-{
-    [images release];
-    [importedImages release];
-    tabView = nil;
-    [super dealloc];
-}
 
 - (void)awakeFromNib
 {
@@ -178,6 +171,8 @@ static NSArray* openFiles()
 {
     return YES;
 }
+
+#pragma mark - update datasource
 
 //	This is the entry point for reloading image browser data and triggering setNeedsDisplay.
 - (void)updateDatasource
@@ -335,14 +330,9 @@ static NSArray* openFiles()
     
 }
 
-#pragma mark -
-#pragma mark actions
+#pragma mark - button action
 
-- (IBAction)placeImages:(id)sender
-{
-    [popupWindow makeKeyAndOrderFront:self];
 
-}
 
 
 - (IBAction)addImageButtonClicked:(id)sender
@@ -385,10 +375,6 @@ static NSArray* openFiles()
 }
 
 
-- (IBAction)segmentSwitch:(id)sender
-{
-
-}
 
 - (IBAction)comboBox:(id)sender
 {
@@ -450,24 +436,23 @@ static NSArray* openFiles()
 
 - (IBAction)newFile:(id)sender
 {
-    if ([[masterView_object.layerArray objectAtIndex:0] count ]== 0 && [[masterView_object.layerArray objectAtIndex:1] count ]== 0 && [[masterView_object.layerArray objectAtIndex:2] count ]== 0)
+    /*if ([[masterView_object.layerArray objectAtIndex:0] count ]== 0 && [[masterView_object.layerArray objectAtIndex:1] count ]== 0 && [[masterView_object.layerArray objectAtIndex:2] count ]== 0)
     {
     }
     else
     {
         NSAlert* msgBox = [[[NSAlert alloc] init] autorelease];
-        [msgBox beginSheetModalForWindow: [NSApp keyWindow]
-                                      modalDelegate: self
-                                     didEndSelector: @selector(alertDidEnd:returnCode:contextInfo:)
-                                        contextInfo: nil];
-        [msgBox setMessageText: @"Do you want to save this file?"];
+        [msgBox setMessageText: @"Alert"];
+        [msgBox setInformativeText: @"Do you want to save this file?"];
         [msgBox addButtonWithTitle: @"YES"];
         [msgBox addButtonWithTitle:@"No"];
-        [msgBox runModal];
-        [msgBox release];
+        [msgBox beginSheetModalForWindow:self.window
+                           modalDelegate: self
+                          didEndSelector: @selector(alertDidEnd:returnCode:contextInfo:)
+                             contextInfo: nil];
+        
+    }*/
 
-    }
-    
 }
 
 
@@ -480,6 +465,7 @@ static NSArray* openFiles()
         case NSAlertFirstButtonReturn:{
         }
             [self saveFile:nil];
+            [masterView_object clearData];
             NSLog(@"FIRST BUTTON PRESSED");
             break;
             
@@ -496,10 +482,34 @@ static NSArray* openFiles()
 
 }
 
+- (void)alertBox:(NSAlert *)alert returnCode:(int)returnCode
+        contextInfo:(void *)contextInfo
+{
+    NSLog(@"returnCode:%d", returnCode);
+    
+    switch (returnCode) {
+        case NSAlertFirstButtonReturn:{
+        }
+            //[self saveFile:nil];
+            NSLog(@"FIRST BUTTON PRESSED");
+            break;
+            
+        case NSAlertSecondButtonReturn:{ // don't show again.
+            //[masterView_object clearData];
+            NSLog(@"SECOND BUTTON PRESSED");
+        }
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
+
 - (IBAction)openFile:(id)sender
 {
-    
-    
     NSOpenPanel *panel = [[NSOpenPanel openPanel] retain];
     
     // Configure your panel the way you want it
@@ -527,13 +537,31 @@ static NSArray* openFiles()
                     [masterView_object.layerArray addObjectsFromArray:obj_ProfileModelUnarchiever. layerArray];
                     [masterView_object openData];
                 }
-
+                
             }
         }
         
         [panel release];
     }];
-    
+
+    /*if ([[masterView_object.layerArray objectAtIndex:0] count ]== 0 && [[masterView_object.layerArray objectAtIndex:1] count ]== 0 && [[masterView_object.layerArray objectAtIndex:2] count ]== 0)
+    {
+        [self checkForEmptyArray];
+    }
+    else
+    {
+        NSAlert* msgBox = [[[NSAlert alloc] init] autorelease];
+        [msgBox setMessageText: @"Alert"];
+        [msgBox setInformativeText: @"Do you want to save this file?"];
+        [msgBox addButtonWithTitle: @"YES"];
+        [msgBox addButtonWithTitle:@"No"];
+        [msgBox beginSheetModalForWindow:self.window
+                           modalDelegate: self
+                          didEndSelector: @selector(alertBox:returnCode:contextInfo:)
+                             contextInfo: nil];
+        
+    }*/
+
     
     
     
@@ -547,6 +575,8 @@ static NSArray* openFiles()
     NSInteger ret = [panel runModal];
     if (ret == NSFileHandlingPanelOKButton)
     {
+        
+
         BOOL success;
         NSError *error;
         NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -579,17 +609,18 @@ static NSArray* openFiles()
         }
         
         
+
         NSDictionary   *dic = [NSDictionary dictionaryWithContentsOfFile:filePath];
         
         NSData *data = [NSPropertyListSerialization dataFromPropertyList:dic
                                                                   format:NSPropertyListXMLFormat_v1_0 errorDescription:nil];
-
-        [data writeToURL:[panel URL] atomically:YES];
+        
+        [data writeToURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@.txt",[[panel URL] absoluteString]]] atomically:YES];
     }
     else if(ret == NSFileHandlingPanelCancelButton)
     {
         NSLog(@"hi..");
-        [masterView_object setNeedsDisplay:YES];
+        //[masterView_object setNeedsDisplay:YES];
     }
 
     
@@ -601,7 +632,7 @@ static NSArray* openFiles()
 
 
 
-- (IBAction)collision:(id)sender
+/*- (IBAction)collision:(id)sender
 {
     if (!masterView_object.isCollision)
     {
@@ -615,7 +646,7 @@ static NSArray* openFiles()
     }
 
     
-}
+}*/
 
 
 #pragma mark -
@@ -887,6 +918,17 @@ int offset =0 ;
     
 
 }
+
+#pragma mark - memory management
+
+- (void)dealloc
+{
+    [images release];
+    [importedImages release];
+    tabView = nil;
+    [super dealloc];
+}
+
 
 
 @end

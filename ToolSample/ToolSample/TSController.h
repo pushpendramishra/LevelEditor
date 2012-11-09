@@ -29,7 +29,6 @@
     IBOutlet NSComboBox                             *dropDownList;
     IBOutlet NSButton                            	*checkBoxshow;
     IBOutlet NSButton                            	*checkBoxCollision;
-    IBOutlet NSButton                            	*imageButton;
     IBOutlet NSTabView                            	*tabView;
     IBOutlet NSTextField                            *xPositionField;
     IBOutlet NSTextField                            *yPositionField;
@@ -46,8 +45,8 @@
     NSTimer                                         *t_AnimationTimer;
 }
 
-@property (assign) IBOutlet NSWindow                *window;
-@property (assign) IBOutlet MasterView              *masterView_object;
+@property (assign) IBOutlet  NSWindow               *window;
+@property (assign) IBOutlet  MasterView             *masterView_object;
 @property (nonatomic,retain) IBOutlet NSTabView     *tabView;
 @property (nonatomic,retain) IBOutlet NSScrollView  *scrollView;
 @property (nonatomic,assign) NSInteger              selectedTab;
@@ -59,14 +58,11 @@
 // ########  Actions Events !!
 - (IBAction)collision:(id)sender;
 - (IBAction)addImageButtonClicked:(id)sender;
-- (IBAction)segmentSwitch:(id)sender;
-- (IBAction)placeImages:(id)sender;
 - (IBAction)comboBox:(id)sender;
 - (IBAction)checkBox:(id)sender;
 - (IBAction)newFile:(id)sender;
 - (IBAction)openFile:(id)sender;
 - (IBAction)saveFile:(id)sender;
-- (IBAction)tabView:(id)sender;
 
 
 // ####### Protocol Methods !!

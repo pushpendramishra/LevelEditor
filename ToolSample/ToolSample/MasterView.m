@@ -10,8 +10,8 @@
 #import "TSLayerData.h"
 
 
-#define RECT_WIDTH 200.0
-#define CIRCLE_WIDTH 20.0
+#define RECT_WIDTH      200.0
+#define RECTANGLE_WIDTH 20.0
 
 @interface MasterView(Private)
 -(void)updateShapeWithRect:(NSRect)newRect;
@@ -26,20 +26,20 @@
 
 -(BOOL)getOriginOfRectFromHitPoint:(NSPoint)localPoint outOrigin:(NSPoint *)outOrigin
 {
-	BOOL didHitCircle = NO;
+	BOOL didHitRect = NO;
 	if( [_rectangle1  containsPoint:localPoint] )
 	{
 		NSPoint rectangle3Origin = NSMakePoint(_rectangleStruct.origin.x + _rectangleStruct.size.width, _rectangleStruct.origin.y+_rectangleStruct.size.height );
 		outOrigin->x = rectangle3Origin.x;
 		outOrigin->y=rectangle3Origin.y;
-		didHitCircle = YES;
+		didHitRect = YES;
 	}
 	else if( [_rectangle2  containsPoint:localPoint] )
 	{
 		NSPoint rectangle4Origin = NSMakePoint(_rectangleStruct.origin.x , _rectangleStruct.origin.y+_rectangleStruct.size.height);
 		outOrigin->x = rectangle4Origin.x;
 		outOrigin->y=rectangle4Origin.y;
-		didHitCircle = YES;
+		didHitRect = YES;
 	}
 	else if( [_rectangle3  containsPoint:localPoint] )
 	{
@@ -47,19 +47,19 @@
 		NSPoint rectangle1Origin = NSMakePoint(_rectangleStruct.origin.x, _rectangleStruct.origin.y ) ;
 		outOrigin->x = rectangle1Origin.x;
 		outOrigin->y=rectangle1Origin.y;
-		didHitCircle = YES;
+		didHitRect = YES;
 	}
 	else if( [_rectangle4  containsPoint:localPoint] )
 	{
 		NSPoint rectangle2Origin = NSMakePoint(_rectangleStruct.origin.x + _rectangleStruct.size.width, _rectangleStruct.origin.y  );
 		outOrigin->x = rectangle2Origin.x;
 		outOrigin->y=rectangle2Origin.y;
-		didHitCircle = YES;
+		didHitRect = YES;
 	}
     
     
     
-	return didHitCircle;
+	return didHitRect;
 }
 
 
@@ -72,7 +72,7 @@
 	//[self setBezierPath:_newRectPath];
 	
 	//_rectangle1
-    NSRect circle1Rect = NSMakeRect(newRect.origin.x, newRect.origin.y, CIRCLE_WIDTH, CIRCLE_WIDTH);
+    NSRect circle1Rect = NSMakeRect(newRect.origin.x, newRect.origin.y, RECTANGLE_WIDTH, RECTANGLE_WIDTH);
 	if( _rectangle1)
 	{
 		[_rectangle1 release];
@@ -81,7 +81,7 @@
 	
 	
 	//_rectangle2
-	NSRect circle2Rect = NSMakeRect(newRect.origin.x + newRect.size.width-CIRCLE_WIDTH, newRect.origin.y  , CIRCLE_WIDTH, CIRCLE_WIDTH);
+	NSRect circle2Rect = NSMakeRect(newRect.origin.x + newRect.size.width-RECTANGLE_WIDTH, newRect.origin.y  , RECTANGLE_WIDTH, RECTANGLE_WIDTH);
 	if( _rectangle2)
 	{
 		[_rectangle2 release];
@@ -89,7 +89,7 @@
 	_rectangle2 = [[NSBezierPath bezierPathWithRect:circle2Rect]retain];
 	
 	//_rectangle3
-	NSRect circle3Rect = NSMakeRect(newRect.origin.x + newRect.size.width-CIRCLE_WIDTH, newRect.origin.y+newRect.size.height-CIRCLE_WIDTH  , CIRCLE_WIDTH, CIRCLE_WIDTH);
+	NSRect circle3Rect = NSMakeRect(newRect.origin.x + newRect.size.width-RECTANGLE_WIDTH, newRect.origin.y+newRect.size.height-RECTANGLE_WIDTH  , RECTANGLE_WIDTH, RECTANGLE_WIDTH);
 	if( _rectangle3)
 	{
 		[_rectangle3 release];
@@ -98,7 +98,7 @@
 	
 	
 	//_rectangle4
-	NSRect circle4Rect = NSMakeRect(newRect.origin.x , newRect.origin.y+newRect.size.height-CIRCLE_WIDTH  , CIRCLE_WIDTH, CIRCLE_WIDTH);
+	NSRect circle4Rect = NSMakeRect(newRect.origin.x , newRect.origin.y+newRect.size.height-RECTANGLE_WIDTH  , RECTANGLE_WIDTH, RECTANGLE_WIDTH);
 	if( _rectangle4)
 	{
 		[_rectangle4 release];
@@ -163,18 +163,7 @@
 }
 
 
--(void)setCollision
-{
-    NSRect dirtyRect;
-    dirtyRect = NSMakeRect(object_LD.originX - object_LD.width/2, object_LD.originY ,  object_LD.width/2 ,object_LD.height/2);
-    collisionRect.size.width  =  object_LD.width/2;
-    collisionRect.size.height =  object_LD.height/2;
-    [object_LD.collisionRectArray addObject:[NSValue valueWithRect:dirtyRect]];
-    [self updateShapeWithRect:dirtyRect];
-    [self setNeedsDisplay:YES];
-	
-}
-
+#pragma mark -  drawrect
 
 - (void)drawRect:(NSRect)dirtyRect
 {
@@ -194,7 +183,6 @@
             NSRect imageRect;
             imageRect = NSMakeRect(obj.originX-obj.width/2,obj.originY-obj.height/2,  obj.width ,obj.height);
 
-           // [[obj.imageObject getImage] drawInRect:NSZeroRect fromRect:imageRect operation:NSCompositeSourceOver fraction:1];
             [[obj.imageObject getImage] compositeToPoint:NSMakePoint(obj.originX-obj.width/2,obj.originY-obj.height/2) operation:NSCompositeSourceOver];
             
             for (int  i= 0; i<[obj.collisionRectArray count]; i++)
@@ -301,9 +289,6 @@
 		
 	}
     
-    
-	
-	
 }
 
 -(void)setBezierPathCircle:(NSBezierPath*)newBezierPath
@@ -469,15 +454,6 @@
     }
     
     
-    
-    if (CGRectIntersectsRect(CGRectMake(object_LD.originX-object_LD.width/2, object_LD.originY-object_LD.height/2, object_LD.width, object_LD.height),_rectangleStruct))
-    {
-        isIntersect = YES;
-    }
-    else
-    {
-        isIntersect = NO;
-    }
     
     
     if(isImageSelected)
@@ -700,8 +676,7 @@
 }
 
 
-#pragma mark - keyEvent opreatons
-
+#pragma mark - z-Order
 
 
 -(void)keyDown:(NSEvent *)event
@@ -766,9 +741,9 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
 }
 
 
-#pragma mark - other method
+#pragma mark - add object in array
 
-
+// method for adding object in array
 - (void)addObjectArray
 {
     TSLayerData   *obj_TSLayerData = [[TSLayerData alloc] init];
@@ -785,6 +760,7 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
     obj_TSLayerData.zOrder = 0;
     
     [[layerArray objectAtIndex:[[item identifier] intValue ]] addObject:obj_TSLayerData];
+    
     [obj_TSLayerData release];
     
     if (self.frame.size.height<[newWrapperImage getImage].size.height)
@@ -794,19 +770,13 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
 }
 
 
+#pragma mark - set delegate
+//set delegate
 - (void)setDelegate:(id<MyViewDelegate>)_delegate
 {
     delegate = _delegate;
 }
 
--(void)create
-{
-    NSRect dirtyRect;
-    dirtyRect = NSMakeRect( collisionRect.origin.x, collisionRect.origin.y, collisionRect.size.width ,collisionRect.size.height);
-    [self updateShapeWithRect:dirtyRect];
-    [self setNeedsDisplay:YES];
-
-}
 
 
 #pragma mark - Encode/ Decode
@@ -827,8 +797,24 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
 }
 
 
-#pragma mark - other methods
+#pragma mark - collision methods
 
+
+-(void)setCollision
+{
+    NSRect dirtyRect;
+    dirtyRect = NSMakeRect(object_LD.originX - object_LD.width/2, object_LD.originY ,  object_LD.width/2 ,object_LD.height/2);
+    collisionRect.size.width  =  object_LD.width/2;
+    collisionRect.size.height =  object_LD.height/2;
+    [object_LD.collisionRectArray addObject:[NSValue valueWithRect:dirtyRect]];
+    [self updateShapeWithRect:dirtyRect];
+    [self setNeedsDisplay:YES];
+	
+}
+
+
+
+//remove collision from object
 -(void)removeCollision
 {
     if([object_LD.collisionRectArray count] )
@@ -839,18 +825,19 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
 }
 
 
+#pragma mark - menu methods
+
+
+//clear previous data
 -(void)clearData
 {
-    [self.layerArray removeAllObjects];
+    [topLayerArray removeAllObjects];
+    [middleLayerArray removeAllObjects];
+    [bottomLayerArray removeAllObjects];
     [self setNeedsDisplay:YES];
 }
 
 
--(void)saveData
-{
-
- 
-}
 
 -(void)openData
 {
@@ -882,6 +869,17 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
 
 
 }
+
+//remove all objects 
+-(void)resetView
+{
+    [layerArray removeAllObjects];
+    [self setNeedsDisplay:YES];
+}
+
+
+
+#pragma mark - method for zoom
 
 float y =1;
 - (void)scrollWheel:(NSEvent *)theEvent
@@ -977,12 +975,6 @@ static const NSSize unitSize = {1.5, 1.5};
     
 }
 
-
--(void)resetView
-{
-    [layerArray removeAllObjects];
-    [self setNeedsDisplay:YES];
-}
 
 
 #pragma mark - memory management

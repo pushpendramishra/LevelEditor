@@ -38,7 +38,6 @@
     BOOL                                _isRectResize;
     BOOL                                isImageSelected;
     BOOL                                isFirstTime;
-    BOOL                                isIntersect;
     
 
     //int
@@ -60,8 +59,8 @@
     id                                  <MyViewDelegate> delegate;
 }
 
-@property (assign)      NSMutableArray                             *layerArray;
-@property (nonatomic)   BOOL                                       isCollision;
+@property (assign)             NSMutableArray                      *layerArray;
+@property (nonatomic)          BOOL                                isCollision;
 @property (nonatomic,retain)   TSController                        *obj_TSController;
 @property(nonatomic,retain)    WrapperImage                        *newWrapperImage;
 @property(nonatomic,retain)    TSLayerData                         *object_LD;
@@ -76,8 +75,6 @@
 -(void)setBezierPath:(NSBezierPath*)newBezierPath;
 -(void)setBezierPathCircle:(NSBezierPath*)newBezierPath;
 -(void)addObjectArray;
--(void)create;
--(void)saveData;
 -(void)openData;
 -(void)resetView;
 -(void)removeCollision;

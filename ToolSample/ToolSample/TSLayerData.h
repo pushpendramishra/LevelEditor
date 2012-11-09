@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WrapperImage.h"
+
 @interface TSLayerData : NSObject <NSCoding>
 {
     WrapperImage        *imageObject;
