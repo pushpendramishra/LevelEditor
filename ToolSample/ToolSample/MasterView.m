@@ -143,11 +143,12 @@
     bottomLayerArray = [[NSMutableArray alloc]init];
     middleLayerArray = [[NSMutableArray alloc]init];
     topLayerArray = [[NSMutableArray alloc]init];
+    collisionObjectArray = [[NSMutableArray alloc]init];
     
     
-
     
     self.object_LD = [[[TSLayerData alloc]init ]autorelease];
+    
     
     //add 
     [layerArray addObject:bottomLayerArray];
@@ -166,10 +167,10 @@
 {
     NSRect dirtyRect;
     dirtyRect = NSMakeRect(object_LD.originX - object_LD.width/2, object_LD.originY ,  object_LD.width/2 ,object_LD.height/2);
-    collisionRect.size.width =  object_LD.width/2;
-    collisionRect.size.height =object_LD.height/2;
+    collisionRect.size.width  =  object_LD.width/2;
+    collisionRect.size.height =  object_LD.height/2;
+    [object_LD.collisionRectArray addObject:[NSValue valueWithRect:dirtyRect]];
     [self updateShapeWithRect:dirtyRect];
-    
     [self setNeedsDisplay:YES];
 	
 }
@@ -196,6 +197,22 @@
            // [[obj.imageObject getImage] drawInRect:NSZeroRect fromRect:imageRect operation:NSCompositeSourceOver fraction:1];
             [[obj.imageObject getImage] compositeToPoint:NSMakePoint(obj.originX-obj.width/2,obj.originY-obj.height/2) operation:NSCompositeSourceOver];
             
+            for (int  i= 0; i<[obj.collisionRectArray count]; i++)
+            {
+                //draw collision rectangle
+                [[NSColor redColor] set];
+                NSBezierPath  *temp =[NSBezierPath bezierPathWithRect:[[obj.collisionRectArray objectAtIndex:i] rectValue]];
+                [temp fill];
+                
+                [[NSColor yellowColor]set];
+                [_rectangle1 fill];
+                [_rectangle2 fill];
+                [_rectangle3 fill];
+                [_rectangle4 fill];
+
+            }
+
+            
             if(isImageSelected)
             {
                     //draw image border
@@ -218,7 +235,7 @@
     
     //draw border
 
-    if(![layerArray count]) return;
+    /*if(![layerArray count]) return;
     if (isCollision )
     {
       
@@ -232,7 +249,7 @@
         [_rectangle2 fill];
         [_rectangle3 fill];
         [_rectangle4 fill];
-    }
+    }*/
     /*if(isCollision && isImageSelected)
     {
         CGRect rectangle;
@@ -452,7 +469,15 @@
     }
     
     
-
+    
+    if (CGRectIntersectsRect(CGRectMake(object_LD.originX-object_LD.width/2, object_LD.originY-object_LD.height/2, object_LD.width, object_LD.height),_rectangleStruct))
+    {
+        isIntersect = YES;
+    }
+    else
+    {
+        isIntersect = NO;
+    }
     
     
     if(isImageSelected)
@@ -461,6 +486,17 @@
     }
     
 
+    
+    for (int i = 0; i<[object_LD.collisionRectArray count]; i++)
+    {
+        BOOL intersect = CGRectContainsPoint([[object_LD.collisionRectArray objectAtIndex:i] rectValue], CGPointMake( mouseLocationInView.x, mouseLocationInView.y));
+        if (intersect)
+        {
+            [self updateShapeWithRect:[[object_LD.collisionRectArray objectAtIndex:i] rectValue]];
+            RemoveIndex = i;
+            break;
+        }
+    }
 
 }
 
@@ -469,21 +505,26 @@
 - (void)rightMouseDown:(NSEvent *)theEvent
 {
     NSMenu *theMenu = [[NSMenu alloc] initWithTitle:@"Contextual Menu"];
-    [theMenu insertItemWithTitle:@"Beep" action:@selector(beep) keyEquivalent:@"" atIndex:0];
-    [theMenu insertItemWithTitle:@"Honk" action:@selector(honk) keyEquivalent:@"" atIndex:1];
-    
+    [theMenu insertItemWithTitle:@"Add Collision" action:@selector(setCollision) keyEquivalent:@"" atIndex:0];
+    [theMenu insertItemWithTitle:@"Remove Collision" action:@selector(removeCollision) keyEquivalent:@"" atIndex:1];
     [NSMenu popUpContextMenu:theMenu withEvent:theEvent forView:self];
     [theMenu release];
-
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
     NSPoint mouseLocationInWindow = [theEvent locationInWindow];
     NSPoint mouseLocationInView   = [self convertPoint:mouseLocationInWindow fromView:nil];
-
+    NSPoint tempPoint ;
+    
+    
+    
     if(isImageSelected)
     {
+        
+        tempPoint.x = object_LD.originX;
+        tempPoint.y = object_LD.originY;
+
         object_LD.originX =  mouseLocationInView.x;
         object_LD.originY =  mouseLocationInView.y;
         
@@ -517,16 +558,26 @@
 		newRect.size.width = fabsf(_stationaryOrigin.x - mouseLocationInView.x);
 		newRect.size.height = fabsf(_stationaryOrigin.y - mouseLocationInView.y);
         
-		
-		[self updateShapeWithRect:newRect];
-		[self setNeedsDisplayInRect:newRect];
-        
-//        newRect.origin.x = imagePoints.x;
-//        newRect.origin.y = imagePoints.y+ object_LD.height;
-//        newRect.size.width = 200;
-//        newRect.size.height = 200;
 
-        
+       if(selectedREct == -1)
+       {
+        for (int i = 0; i<[object_LD.collisionRectArray count]; i++)
+        {
+            BOOL intersect = CGRectContainsPoint([[object_LD.collisionRectArray objectAtIndex:i] rectValue], CGPointMake( mouseLocationInView.x, mouseLocationInView.y));
+            if (intersect)
+            {
+                [object_LD.collisionRectArray replaceObjectAtIndex:i withObject:[NSValue valueWithRect:newRect]];
+                selectedREct = i;
+                break;
+            }
+        }
+       }
+       if(selectedREct != -1)
+       {
+        [object_LD.collisionRectArray replaceObjectAtIndex:selectedREct withObject:[NSValue valueWithRect:newRect]];
+        [self updateShapeWithRect:newRect];
+        [self setNeedsDisplayInRect:newRect];
+       }
 	}
     
     
@@ -567,7 +618,41 @@
     }*/
     
     
+    if (!_isRectResize && isImageSelected)
+    {
+//        NSPoint point;
+//        point.x = _rectangleStruct.origin.x -  tempPoint.x;
+//        point.y =_rectangleStruct.origin.y -  tempPoint.y;
+        
+        if(newRect.origin.x == 0&&newRect.origin.y==0)
+        {
+            newRect.origin.x = originPoints.x;
+            newRect.origin.y = originPoints.y+ object_LD.height;
+        }
+        
+//        _rectangleStruct.origin.x =  object_LD.originX + _rectangleStruct.origin.x -  tempPoint.x;
+//        _rectangleStruct.origin.y =  object_LD.originY + _rectangleStruct.origin.x -  tempPoint.y;
+        
 
+        for (int i = 0; i<[object_LD.collisionRectArray count]; i++)
+        {
+
+            NSRect rect = [[object_LD.collisionRectArray objectAtIndex:i] rectValue];
+            rect.size.width = [[object_LD.collisionRectArray objectAtIndex:i] rectValue].size.width;
+            rect.size.height = [[object_LD.collisionRectArray objectAtIndex:i] rectValue].size.height;
+            rect.origin.x = [[object_LD.collisionRectArray objectAtIndex:i] rectValue].origin.x +object_LD.originX - tempPoint.x;
+            rect.origin.y = [[object_LD.collisionRectArray objectAtIndex:i] rectValue].origin.y +object_LD.originY - tempPoint.y;
+
+            [object_LD.collisionRectArray replaceObjectAtIndex:i withObject:[NSValue valueWithRect:rect]];
+            [self updateShapeWithRect:[[object_LD.collisionRectArray objectAtIndex:i] rectValue]];
+        }
+        
+        //[self updateShapeWithRect:_rectangleStruct];
+        
+
+    }
+    
+    
     //setting origin for the only image which has been clicked in mouseDown instead of again iterating over the whole image array r
     
 
@@ -586,7 +671,7 @@
 - (void)mouseUp:(NSEvent *)pTheEvent
 {
     
-    if( _isRectResize )
+    /*if( _isRectResize )
 	{
 		NSPoint event_location = [pTheEvent locationInWindow];
 		NSPoint local_point = [self convertPoint:event_location fromView:nil];
@@ -608,7 +693,8 @@
 		
 		[self updateShapeWithRect:newRect];
 		[self setNeedsDisplay:YES];
-	}
+	}*/
+     selectedREct = -1;
     isImageSelected = NO;
     return;
 }
@@ -740,6 +826,26 @@ NSComparisonResult sortTagByName(TSLayerData *tag1, TSLayerData *tag2, void *ign
     return self;
 }
 
+
+#pragma mark - other methods
+
+-(void)removeCollision
+{
+    if([object_LD.collisionRectArray count] )
+    {
+        [object_LD.collisionRectArray removeObjectAtIndex:RemoveIndex];
+        [self setNeedsDisplay:YES];
+    }
+}
+
+
+-(void)clearData
+{
+    [self.layerArray removeAllObjects];
+    [self setNeedsDisplay:YES];
+}
+
+
 -(void)saveData
 {
 
@@ -870,6 +976,7 @@ static const NSSize unitSize = {1.5, 1.5};
     
     
 }
+
 
 -(void)resetView
 {

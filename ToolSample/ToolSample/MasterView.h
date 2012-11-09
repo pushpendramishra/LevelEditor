@@ -19,6 +19,7 @@
     NSMutableArray                      *bottomLayerArray;
     NSMutableArray                      *middleLayerArray;
     NSMutableArray                      *topLayerArray;
+    NSMutableArray                      *collisionObjectArray;
     
     //BezierPath
     NSBezierPath                        *_rectangle;
@@ -32,16 +33,20 @@
 	NSPoint                             _stationaryOrigin;
 	NSPoint                             originPoints;
     NSPoint                             location;
+    
     //bool
     BOOL                                _isRectResize;
     BOOL                                isImageSelected;
     BOOL                                isFirstTime;
+    BOOL                                isIntersect;
     
 
     //int
     int                                 flag;
     int                                 selectedImageIndex;
     int                                 counter;
+    int                                 selectedREct;
+    int                                 RemoveIndex;
     float                               defaultSize;
     
     
@@ -75,7 +80,8 @@
 -(void)saveData;
 -(void)openData;
 -(void)resetView;
-
+-(void)removeCollision;
+-(void)clearData;
 
 //delagate
 - (void)setDelegate:(id<MyViewDelegate>)_delegate;

@@ -18,10 +18,12 @@
     float               originY;
     float               width;
     float               height;
+    NSMutableArray      *collisionRectArray;
 }
 
 
 @property (nonatomic,retain) WrapperImage        *imageObject;
+@property (nonatomic,retain) NSMutableArray      *collisionRectArray;
 @property (nonatomic,assign) int                 uniqueID;
 @property (nonatomic,assign) int                 ID;
 @property (nonatomic,assign) int                 zOrder;

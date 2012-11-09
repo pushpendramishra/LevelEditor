@@ -450,24 +450,24 @@ static NSArray* openFiles()
 
 - (IBAction)newFile:(id)sender
 {
-    bool  empty ;
     if ([[masterView_object.layerArray objectAtIndex:0] count ]== 0 && [[masterView_object.layerArray objectAtIndex:1] count ]== 0 && [[masterView_object.layerArray objectAtIndex:2] count ]== 0)
     {
-        empty= YES;
-    }
-    
-    if (empty)
-    {
-        //[masterView_object resetView];
     }
     else
     {
         NSAlert* msgBox = [[[NSAlert alloc] init] autorelease];
+        [msgBox beginSheetModalForWindow: [NSApp keyWindow]
+                                      modalDelegate: self
+                                     didEndSelector: @selector(alertDidEnd:returnCode:contextInfo:)
+                                        contextInfo: nil];
         [msgBox setMessageText: @"Do you want to save this file?"];
         [msgBox addButtonWithTitle: @"YES"];
         [msgBox addButtonWithTitle:@"No"];
         [msgBox runModal];
+        [msgBox release];
+
     }
+    
 }
 
 
@@ -475,15 +475,16 @@ static NSArray* openFiles()
         contextInfo:(void *)contextInfo
 {
     NSLog(@"returnCode:%d", returnCode);
-    [[alert window] orderOut:nil];
     
     switch (returnCode) {
         case NSAlertFirstButtonReturn:{
         }
+            [self saveFile:nil];
             NSLog(@"FIRST BUTTON PRESSED");
             break;
             
         case NSAlertSecondButtonReturn:{ // don't show again.
+            [masterView_object clearData];
             NSLog(@"SECOND BUTTON PRESSED");
         }
             
@@ -541,52 +542,59 @@ static NSArray* openFiles()
 
 - (IBAction)saveFile:(id)sender
 {
-    BOOL success;
-    NSError *error;
-    
-    
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"Property List.plist"];
-    
-    success = [fileManager fileExistsAtPath:filePath];
-    if (!success)
-    {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"Property List" ofType:@"plist"];
-        success = [fileManager copyItemAtPath:path toPath:filePath error:&error];
-        
-    }
-    
-    
-    // set data
-    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject: masterView_object.layerArray];
-    [encodedObject writeToFile: filePath atomically: YES];
-    
-    if(encodedObject)
-    {
-        [encodedObject writeToFile: filePath atomically:YES];
-        
-        //return;
-    }
-    else
-    {
-        NSLog(@"error");
-    }
-    
-    
-    NSDictionary   *dic = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    
-    NSData *data = [NSPropertyListSerialization dataFromPropertyList:dic
-                                                              format:NSPropertyListXMLFormat_v1_0 errorDescription:nil];
-    
     NSSavePanel *panel = [NSSavePanel savePanel];
     
     NSInteger ret = [panel runModal];
-    if (ret == NSFileHandlingPanelOKButton) {
+    if (ret == NSFileHandlingPanelOKButton)
+    {
+        BOOL success;
+        NSError *error;
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"Property List.plist"];
+        
+        success = [fileManager fileExistsAtPath:filePath];
+        if (!success)
+        {
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"Property List" ofType:@"plist"];
+            success = [fileManager copyItemAtPath:path toPath:filePath error:&error];
+            
+        }
+        
+        
+        // set data
+        NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject: masterView_object.layerArray];
+        [encodedObject writeToFile: filePath atomically: YES];
+        
+        if(encodedObject)
+        {
+            [encodedObject writeToFile: filePath atomically:YES];
+            
+            //return;
+        }
+        else
+        {
+            NSLog(@"error");
+        }
+        
+        
+        NSDictionary   *dic = [NSDictionary dictionaryWithContentsOfFile:filePath];
+        
+        NSData *data = [NSPropertyListSerialization dataFromPropertyList:dic
+                                                                  format:NSPropertyListXMLFormat_v1_0 errorDescription:nil];
+
         [data writeToURL:[panel URL] atomically:YES];
     }
+    else if(ret == NSFileHandlingPanelCancelButton)
+    {
+        NSLog(@"hi..");
+        [masterView_object setNeedsDisplay:YES];
+    }
+
+    
+    
+    
 
 
 }

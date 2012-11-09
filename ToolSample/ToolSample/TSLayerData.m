@@ -18,6 +18,7 @@
 @synthesize height;
 @synthesize zOrder;
 @synthesize ID;
+@synthesize collisionRectArray;
 
 
 
@@ -34,6 +35,17 @@
     return self;
 }
 
+- (id)init {
+    self = [super init];
+    if (self)
+    {
+        self.collisionRectArray  = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
+
+
 #pragma mark - Encode/ Decode
 
 // #######################################################################
@@ -49,6 +61,7 @@
     [encoder encodeInteger: self. uniqueID                forKey    :           @"uniqueID"];
     [encoder encodeInteger: self. zOrder                  forKey    :           @"zOrder"];
     [encoder encodeInteger: self. ID                      forKey    :           @"ID"];
+    [encoder encodeObject:  self. collisionRectArray      forKey    :           @"collisionRectArray"];
 }
 
 // #######################################################################
@@ -64,6 +77,7 @@
     self. uniqueID                  = [decoder decodeIntegerForKey  :           @"uniqueID"];
     self. zOrder                    = [decoder decodeIntegerForKey  :           @"zOrder"];
     self. ID                        = [decoder decodeIntegerForKey  :           @"ID"];
+    self. collisionRectArray        = [decoder decodeObjectForKey   :         @"collisionRectArray"];
 }
 
 
@@ -77,7 +91,14 @@
     {
         [imageObject   release];
         imageObject = nil;
-    }   
+    }
+    
+    if(collisionRectArray)
+    {
+        [collisionRectArray   release];
+        collisionRectArray = nil;
+    }
+
 }
 
 @end

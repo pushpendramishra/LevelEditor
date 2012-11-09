@@ -20,7 +20,7 @@
 @class MasterView;
 
 
-@interface TSController : NSObject <MyViewDelegate>
+@interface TSController : NSObject <MyViewDelegate,NSAlertDelegate>
 {
     //IBOutlet
     IBOutlet IKImageBrowserView                 	*imageBrowser;
